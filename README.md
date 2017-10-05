@@ -1,2 +1,2 @@
-# photoiff
+# PhotoIFF
 Gestor de Fotos
