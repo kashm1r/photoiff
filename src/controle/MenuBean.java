@@ -82,9 +82,14 @@ public class MenuBean{
 		getMenu().AddMenuItem(menuItemService.obtemPorId(idMenuItem));
 		idMenuItem=0L;
 	}
-	
+		
 	public void gravarMenu() {
-		menuService.create(getMenu());
+		if(getMenu().getId() != null) {
+			menuService.merge(getMenu());
+			
+		}else {
+			menuService.create(getMenu());
+		}		
 			
 		atualizarMenu();
 		setMenu(new Menu());
@@ -94,8 +99,7 @@ public class MenuBean{
 	
 	
 	public void editarMenu(Menu men) {
-		setMenu(men);
-		
+		setMenu(men);		
 		
 	}
 	
