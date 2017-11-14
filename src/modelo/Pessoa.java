@@ -17,7 +17,7 @@ public class Pessoa {
 	private String senha;
 	
 	@ManyToOne
-	private Perfil perfil;
+	private Perfil perfil = new Perfil();
 	
 	public Pessoa(){}
 

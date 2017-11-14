@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -16,7 +17,7 @@ public class Menu {
 	private String nome;
 	
 	@ManyToMany
-	private List<MenuItem> itens;
+	private List<MenuItem> itens = new ArrayList<MenuItem>();
 	
 	public Menu(){}
 	
@@ -49,6 +50,11 @@ public class Menu {
 	
 	public void AddMenuItem (MenuItem m) {
 		getItens().add(m);
+	}
+	
+	@Override
+	public String toString() {
+		return nome;
 	}
 
 }

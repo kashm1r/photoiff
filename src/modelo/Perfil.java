@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -16,7 +17,7 @@ public class Perfil {
 	private String nome;
 	
 	@ManyToMany
-	private List<Menu> menus;
+	private List<Menu> menus = new ArrayList<Menu>();
 	
 	public Perfil(){};	
 	
@@ -47,6 +48,14 @@ public class Perfil {
 		this.id = id;
 	}
 	
+	public void addMenu (Menu m) {
+		getMenus().add(m);
+	}
+	
+	@Override
+	public String toString() {
+		return nome;
+	}
 	
 
 }
