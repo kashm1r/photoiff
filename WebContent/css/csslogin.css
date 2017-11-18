@@ -1,0 +1,51 @@
+*{
+	margin:0px;
+	padding:0px;
+}
+
+
+body {
+
+	background: #00AE9C;
+}
+
+h1 {
+    color: blue;
+    font-family: verdana;
+    font-size: 300%;
+}
+#pagina{
+	margin:auto;
+	width:960px;
+	height: 600px;
+	background: #00AE9C;
+}
+
+
+#superior{
+
+	width:960px;
+	height: 100px;
+	background:#00AE9C;
+}
+
+#central{
+	width:960px;
+	height: 500px;
+	background: #00AE9C;
+}
+
+#imagem{
+	text-align:center;
+	width:560px;
+	height: 500px;
+	background: #00AE9C;
+}
+
+#login{
+	margin-top:150px;
+	float:right;
+	width:400px;
+	height: 500px;
+	background: #00AE9C;	
+}

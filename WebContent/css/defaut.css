@@ -1,0 +1,66 @@
+*{
+	margin:0px;
+	padding:0px;
+}
+
+body {
+
+	background: #232323;
+}
+
+#pagina{
+	margin:auto;
+	width:1320px;
+	height: 800px;
+	background: #EBE8E8;
+}
+
+#barraesquerda{
+	align-items: center;
+	position: fixed;
+	float: left;
+	width:240px;
+	height: 800px;
+	background: #141414;
+}
+
+#logo{
+	justify-content: center;
+	align-items: center;
+	margin-top:5px;
+	width:200px;
+	height: 130px;
+
+}
+
+#cabecalho{
+	position: absolut;
+	float: right;
+	width:1080px;
+	height: 150px;
+	background: #00AE9C;
+}
+
+#centro {
+	position:absolute;
+	top:2%;
+	left:6%;
+}
+
+#conteudo{
+	float: right;
+	width:1080px;
+	height: 650px;
+	
+}
+
+.ui-widget {
+    font-family: Arial,sans-serif;
+    font-size: 1.1em;
+}
+
+.ui-outputlabel {
+	font-family:Times New Roman, sans-serif;
+
+}
+
