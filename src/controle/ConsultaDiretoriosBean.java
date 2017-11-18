@@ -2,6 +2,7 @@ package controle;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -38,6 +39,7 @@ public class ConsultaDiretoriosBean {
 		this.selectedNode = selectedNode;
 	}
 
+	@PostConstruct
 	public void consultar() {
 		List<Diretorio> diretorioRaizes = diretoriosService.raizesComNos();
 
