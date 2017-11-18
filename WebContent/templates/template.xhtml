@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/defaut.css" />
+</h:head> 
+<body> 
+<div id="pagina">
+
+		<div id="barraesquerda">
+	
+			<div id="logo">
+			<h:graphicImage value="/img/logo.png" id="centro" />
+				
+			</div>
+			
+			<div id="botoes">
+				<h:form>
+    				<p:menu toggleable="true">
+		    		    <p:submenu label="Configurações">
+            				<p:menuitem value="Ger. Usuario" outcome="usuario.xhtml" icon="ui-icon-star"/>
+            				<p:menuitem value="Home" outcome="home.xhtml" icon="ui-icon-star"/>
+        				</p:submenu>
+    				</p:menu>
+ 
+				</h:form>
+			
+			</div>
+			
+			<div id="particoes">
+				<br/>
+				<br/>
+		
+				<h:form id="frm">
+					<p:growl id="messages" showDetail="true" />
+					<p:tree style="width:100%" value="#{consultaDiretoriosBean.raiz}" var="diretorio" selectionMode="single" selection="#{consultaDiretoriosBean.selectedNode}">
+			
+						<p:treeNode>
+							<h:outputText value="#{diretorio}" />
+						</p:treeNode>
+						
+					</p:tree>
+					<p:commandButton value="Selecionar" update="messages" icon="ui-icon-newwin"
+                        actionListener="#{consultaDiretoriosBean.displaySelectedSingle}"/>
+                     
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    
+                    
+                   <center><p:button value="SAIR" href="/Logout" icon="ui-icon-star"/></center>    
+				</h:form>
+			
+			</div>
+
+		</div>
+		
+
+		<div id="cabecalho">
+			<h:graphicImage value="/img/iff.png"  />
+		</div>
+		
+		
+		<div id="conteudo">
+			<ui:insert name="conteudo"></ui:insert>	
+		
+		</div>
+		
+		
+	
+	
+</div>
+</body> 
+</html>

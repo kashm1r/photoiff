@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/csslogin.css" />
+</h:head> 
+<body> 
+	<div id="pagina">
+	
+			<div id="superior"></div>
+	
+				<div id="central">
+
+					<div id="login">
+						<h:graphicImage value="/img/hey.png" />
+						
+						
+								<h:form id="editForm">
+									<p:growl id="mensagens" showDetail="true" life="12000"/>
+								     <h:panelGrid id="editPanelGrid" columns="2" >
+								     
+								     	  <h:graphicImage value="/img/l.png" />
+								          <p:inputText id="usuario" value="#{validarBean.loginUser}" size="30"  />
+								          
+								          <h:graphicImage value="/img/s.png" />
+								          <p:password id="senha" value="#{validarBean.senhaUser}" size="30" />
+										  <h:outputText />
+										  
+										  <h:panelGroup style="margin-top: 20px; margin-bottom:35px;">
+										    <h:panelGrid columns="3">							
+											      <p:commandButton update="editForm"
+											      actionListener="#{validarBean.logar}" 
+											      value=" Acessar " style="font-size: 15px !important;"/>
+								            </h:panelGrid>	                    	
+								          </h:panelGroup>
+								          
+								      </h:panelGrid>	                    							
+								  </h:form>
+					
+					
+					</div>
+					
+					<div id="imagem">
+						<h:graphicImage value="/img/login.png" />
+					</div>
+					
+				</div>
+			
+			<div id="inferior"></div>
+		
+	</div>
+	
+</body> 
+</html>
