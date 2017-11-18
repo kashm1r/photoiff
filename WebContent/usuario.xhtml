@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/template.xhtml">
+	<ui:define name="titulo">Novo Usuario</ui:define>
+	<ui:define name="conteudo">
+		
+		<h:form id="formLivro">
+				
+			<p:growl autoUpdate="true" showDetail="true" life="5000" />
+			<h:panelGrid columns="2">
+				<p:outputLabel value="NOME: " for="nome" />
+				<p:inputText value="#{pessoaBean.pessoa.nome}" id="nome" required="true" requiredMessage="Nome Obrigatório ou Somente Letras"/>
+				
+				<p:outputLabel value="SOBRENOME: " for="sobrenome"/>
+				<p:inputText value="#{pessoaBean.pessoa.sobrenome}" id="sobrenome" required="true" requiredMessage="Sobreome Obrigatório ou Somente Letras"/>
+				
+				<p:outputLabel value="MATRICULA: " for="matricula"/>
+				<p:inputText value="#{pessoaBean.pessoa.matricula}" id="matricula" required="true" requiredMessage="Matricula Obrigatória ou Somente Numero"/>
+				
+				<p:outputLabel value="LOGIN: " for="login"/>
+				<p:inputText value="#{pessoaBean.pessoa.login}" id="login" required="true" requiredMessage="Login Obrigatório"/>
+				
+				<p:outputLabel value="SENHA: " for="senha"/>
+				<p:password value="#{pessoaBean.pessoa.senha}" id="senha" match="confirmesenha" required="true" requiredMessage="Senha Obrigatória" validatorMessage="Senha não compatíveis"/>
+				
+				<p:outputLabel value="CONFIRME A SENHA: " for="confirmesenha"/>
+				<p:password value="#{pessoaBean.pessoa.senha}" id="confirmesenha" required="true" requiredMessage="Senha Obrigatória"/>
+				
+			</h:panelGrid>
+			<br></br>
+			<p:fieldset legend="PERFIS:" id="formAutores" >
+				<h:panelGrid columns="3">
+				
+					<p:outputLabel value="Perfis:"/>
+					<p:selectOneMenu value="#{pessoaBean.idPerfil}">
+						<f:selectItem itemValue="0" itemLabel="Selecione..."/>
+						<f:selectItems value="#{pessoaBean.listaPerfis}" var="perfil" 
+						itemLabel="#{perfil.nome}" itemValue="#{perfil.id}"/>
+					</p:selectOneMenu>
+				
+				</h:panelGrid>	
+			</p:fieldset>
+			
+			<br></br>
+			<p:commandButton actionListener="#{pessoaBean.gravarPessoa()}" value="Gravar" update=":formLivro, :formList"/>
+			
+		</h:form>
+		
+		<h:form id="formList">	
+	
+		<p:dataTable value="#{pessoaBean.listaPessoas}" var="pessoas" cellpadding="3" border="1"
+		paginator="true" rows="10" rowsPerPageTemplate="2, 5">
+		
+			<p:column headerText="Nome">
+				<p:outputLabel value="#{pessoas.nome}" />
+			</p:column>
+			
+			<p:column headerText="Sobreome">
+				<p:outputLabel value="#{pessoas.sobrenome}" />
+			</p:column>
+						
+			<p:column headerText="Perfil">
+				<h:outputLabel value="#{pessoas.perfil}" />			
+			</p:column>
+				
+			<p:column>
+				<p:commandButton actionListener="#{pessoaBean.editarPessoa(pessoas)}" value="Editar" update=":formLivro"/>
+			</p:column>
+			
+			<p:column>
+				<p:commandButton actionListener="#{pessoaBean.deletarPessoa(pessoas)}" value="Deletar" update=":formList"/>
+			</p:column>
+			
+		</p:dataTable>
+	</h:form>
+	
+	
+	</ui:define>
+</ui:composition>
+	
+</html>
