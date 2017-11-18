@@ -51,6 +51,12 @@ public class Perfil {
 	public void addMenu (Menu m) {
 		getMenus().add(m);
 	}
+
+
+	/*@Override
+	public String toString() {
+		return "Perfil [nome=" + nome + ", menus=" + menus + "]";
+	}*/
 	
 	@Override
 	public String toString() {
@@ -58,4 +64,5 @@ public class Perfil {
 	}
 	
 
+	
 }

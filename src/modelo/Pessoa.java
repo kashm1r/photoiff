@@ -1,5 +1,6 @@
 package modelo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,8 +14,15 @@ public class Pessoa {
 	
 	private String nome;
 	private String sobrenome;
-	private Integer matricula;
+	
+	@Column (nullable = false, unique = true)
+	private Long matricula;
+	
+	@Column (nullable = false)
 	private String senha;
+	
+	@Column (nullable = false, unique = true)
+	private String login;
 	
 	@ManyToOne
 	private Perfil perfil = new Perfil();
@@ -45,11 +53,11 @@ public class Pessoa {
 		this.sobrenome = sobrenome;
 	}
 
-	public Integer getMatricula() {
+	public Long getMatricula() {
 		return matricula;
 	}
 
-	public void setMatricula(Integer matricula) {
+	public void setMatricula(Long matricula) {
 		this.matricula = matricula;
 	}
 
@@ -67,9 +75,16 @@ public class Pessoa {
 
 	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
 	};
-	
-	
+		
 	
 		
 

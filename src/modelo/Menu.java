@@ -51,10 +51,18 @@ public class Menu {
 	public void AddMenuItem (MenuItem m) {
 		getItens().add(m);
 	}
+
+
+	/*@Override
+	public String toString() {
+		return "Menu [nome=" + nome + ", itens=" + itens + "]";
+	}*/
 	
 	@Override
 	public String toString() {
 		return nome;
 	}
+	
+	
 
 }
