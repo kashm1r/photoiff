@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+      
+<ui:composition template="/templates/template.xhtml">
+
+	
+
+
+	<ui:define name="pagina">
+	
+				
+			<ui:define name="conteudo">
+			
+				
+				
+			</ui:define>
+	
+	
+			<ui:define name="barraesquerda">
+		
+				<ui:define name="logo">
+				<h:graphicImage value="/img/logo.png" id="centro" />
+					
+				</ui:define>
+				
+				<ui:define name="botoes">
+				
+				
+			
+				
+				</ui:define>
+				
+				<ui:define name="particoes">
+			
+				
+				</ui:define>
+	
+			</ui:define>
+			
+	
+			<ui:define name="cabecalho">
+				<br/> 
+					<p:outputLabel value="Bem vindo #{homeBean.usuario.login}" style="font-weight:bold;"/>
+				<br/>
+				<br/>
+				
+			</ui:define>
+			
+			
+	</ui:define>
+
+	
+
+
+
+</ui:composition>
+</html>
