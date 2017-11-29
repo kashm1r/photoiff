@@ -103,7 +103,13 @@ public class PessoaBean {
 	public void deletarPessoa(Pessoa pess){
 		pessoaService.remove(pess);
 		atualizarPessoa();
+		 addMessage("Aviso", "Usuário deletado com sucesso!");
 	}
+	
+	public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
 	
 	
 
