@@ -52,9 +52,10 @@
 		</h:form>
 		
 		<h:form id="formList">	
-	
+		
+		<p:growl autoUpdate="true" id="mensagem" showDetail="true" life="5000" />
 		<p:dataTable value="#{pessoaBean.listaPessoas}" var="pessoas" cellpadding="3" border="1"
-		paginator="true" rows="10" rowsPerPageTemplate="2, 5">
+		paginator="true" rows="10" rowsPerPageTemplate="2, 5" >
 		
 			<p:column headerText="Nome">
 				<p:outputLabel value="#{pessoas.nome}" />
@@ -73,10 +74,17 @@
 			</p:column>
 			
 			<p:column>
-				<p:commandButton actionListener="#{pessoaBean.deletarPessoa(pessoas)}" value="Deletar" update=":formList"/>
+				<p:commandButton actionListener="#{pessoaBean.deletarPessoa(pessoas)}" value="Deletar" update=":formList">
+					<p:confirm header="Aviso" message="Deseja apagar o usuário?" icon="ui-icon-alert" />
+				</p:commandButton>
 			</p:column>
 			
 		</p:dataTable>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        		<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        		<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    		</p:confirmDialog>
 	</h:form>
 	
 	
