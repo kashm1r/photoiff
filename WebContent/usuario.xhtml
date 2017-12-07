@@ -9,7 +9,9 @@
 	<ui:define name="titulo">Novo Usuario</ui:define>
 	<ui:define name="conteudo">
 		
-		<h:form id="formLivro">
+		<p:dialog widgetVar="usuarioDl" modal="true" resizable="false" position="center top"
+		>
+		<h:form id="formLivro1">
 				
 			<p:growl autoUpdate="true" showDetail="true" life="5000" />
 			<h:panelGrid columns="2">
@@ -47,16 +49,19 @@
 			</p:fieldset>
 			
 			<br></br>
-			<p:commandButton actionListener="#{pessoaBean.gravarPessoa()}" value="Gravar" update=":formLivro, :formList"/>
+			<p:commandButton actionListener="#{pessoaBean.gravarPessoa()}" value="Gravar" update=":formLivro1, :formList1"/>
 			
 		</h:form>
+		</p:dialog>
 		
-		<h:form id="formList">	
+		<h:form id="formList1">	
+		
+		<p:commandButton value="Incluir Usuario" onclick="PF('usuarioDl').show()"/>
 		
 		<p:growl autoUpdate="true" id="mensagem" showDetail="true" life="5000" />
 		<p:dataTable value="#{pessoaBean.listaPessoas}" var="pessoas" cellpadding="3" border="1"
-		paginator="true" rows="10" rowsPerPageTemplate="2, 5" >
-		
+		paginator="true" rows="10" style="width:98%">
+			
 			<p:column headerText="Nome">
 				<p:outputLabel value="#{pessoas.nome}" />
 			</p:column>
@@ -70,11 +75,11 @@
 			</p:column>
 				
 			<p:column>
-				<p:commandButton actionListener="#{pessoaBean.editarPessoa(pessoas)}" value="Editar" update=":formLivro"/>
+				<p:commandButton actionListener="#{pessoaBean.editarPessoa(pessoas)}" value="Editar" update=":formLivro1"/>
 			</p:column>
 			
 			<p:column>
-				<p:commandButton actionListener="#{pessoaBean.deletarPessoa(pessoas)}" value="Deletar" update=":formList">
+				<p:commandButton actionListener="#{pessoaBean.deletarPessoa(pessoas)}" value="Deletar" update=":formList1">
 					<p:confirm header="Aviso" message="Deseja apagar o usuário?" icon="ui-icon-alert" />
 				</p:commandButton>
 			</p:column>
@@ -85,6 +90,7 @@
         		<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
         		<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
     		</p:confirmDialog>
+    		
 	</h:form>
 	
 	
