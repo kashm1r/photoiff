@@ -20,11 +20,12 @@
 						
 						
 								<h:form id="editForm">
+								 <p:focus context="editForm"/>
 									<p:growl id="mensagens" showDetail="true" life="12000"/>
 								     <h:panelGrid id="editPanelGrid" columns="2" >
 								     
 								     	  <h:graphicImage value="/img/l.png" />
-								          <p:inputText id="usuario" value="#{validarBean.loginUser}" size="30"  />
+								          <p:inputText id="usuario" value="#{validarBean.loginUser}" size="30" tabindex="0" />
 								          
 								          <h:graphicImage value="/img/s.png" />
 								          <p:password id="senha" value="#{validarBean.senhaUser}" size="30" />

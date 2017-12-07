@@ -20,15 +20,21 @@
 			
 			<div id="botoes">
 				<h:form>
+				<p:growl id="messages" showDetail="true" />
+					
+						
+    				<center><p:commandButton value="Upload de Fotos" action="foto.xhtml"/></center>
+    				<br/>
+					<br/>
     				<p:menu toggleable="true">
 		    		    <p:submenu label="Configurações">
-            				<p:menuitem value="Ger. Usuario" outcome="usuario.xhtml" icon="ui-icon-star"/>
+            				<p:menuitem value="Ger. Usuario" outcome="usuario.xhtml" icon="ui-icon-extlink"/>
+            				<p:menuitem value="Ger. Partições" outcome="home.xhtml" icon="ui-icon-extlink"/>
             				<p:menuitem value="Home" outcome="home.xhtml" icon="ui-icon-star"/>
         				</p:submenu>
     				</p:menu>
- 
-				</h:form>
-			
+    				
+    			</h:form>	
 			</div>
 			
 			<div id="particoes">
@@ -37,7 +43,7 @@
 		
 				<h:form id="frm">
 					<p:growl id="messages" showDetail="true" />
-					<p:tree style="width:100%" value="#{consultaDiretoriosBean.raiz}" var="diretorio" selectionMode="single" selection="#{consultaDiretoriosBean.selectedNode}">
+					<p:tree style="width:97%" value="#{consultaDiretoriosBean.raiz}" var="diretorio" selectionMode="single" selection="#{consultaDiretoriosBean.selectedNode}">
 			
 						<p:treeNode>
 							<h:outputText value="#{diretorio}" />
@@ -51,14 +57,7 @@
                     <br/>
                     <br/>
                     <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
+
                     
                     
                    <center><p:button value="SAIR" href="/Logout" icon="ui-icon-star"/></center>    
@@ -70,12 +69,16 @@
 		
 
 		<div id="cabecalho">
-			<h:graphicImage value="/img/iff.png"  />
+			<div class="alinhamento-conteudo">
+				<h:graphicImage value="/img/iff.png"  />
+			</div>	
 		</div>
 		
 		
 		<div id="conteudo">
-			<ui:insert name="conteudo"></ui:insert>	
+			<div class="alinhamento-conteudo">
+				<ui:insert name="conteudo"></ui:insert>
+			</div>	
 		
 		</div>
 		
