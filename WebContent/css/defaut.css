@@ -24,6 +24,10 @@ body {
 	background: #141414;
 }
 
+#particoes{
+	overflow: auto;
+}
+
 #logo{
 	justify-content: center;
 	align-items: center;
@@ -34,7 +38,7 @@ body {
 }
 
 #cabecalho{
-	position: absolut;
+	position: static;
 	float: right;
 	width:1080px;
 	height: 150px;
@@ -62,5 +66,9 @@ body {
 .ui-outputlabel {
 	font-family:Times New Roman, sans-serif;
 
+}
+.alinhamento-conteudo{
+	margin-left: 10px;
+	
 }
 
