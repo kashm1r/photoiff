@@ -10,6 +10,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.RequestContext;
+
 import modelo.Perfil;
 import modelo.Pessoa;
 import service.PerfilService;
@@ -78,21 +80,28 @@ public class PessoaBean {
 	}
 	
 	public void gravarPessoa(){
-		if(idPerfil == 0) {
-			FacesContext.getCurrentInstance().addMessage("Pessoa", new FacesMessage("Perfil Inválido"));
-		}else {
-			getPessoa().setPerfil(perfilService.obtemPorId(idPerfil));
-		}
-		if(getPessoa().getId()!= null){
-			pessoaService.merge(getPessoa());
-		} else {
-			pessoaService.create(getPessoa());
-		}
-		
-		atualizarPessoa();
-		idPerfil = 0L;
-		FacesContext.getCurrentInstance().addMessage("Pessoa", new FacesMessage("Usuario cadastrado com sucesso!"));
-		setPessoa(new Pessoa());
+		try {
+			if(idPerfil == 0) {
+				FacesContext.getCurrentInstance().addMessage("Pessoa", new FacesMessage("Perfil Inválido"));
+			}else {
+				getPessoa().setPerfil(perfilService.obtemPorId(idPerfil));
+			}
+			if(getPessoa().getId()!= null){
+				pessoaService.merge(getPessoa());
+			} else {
+				pessoaService.create(getPessoa());
+			}
+			
+			
+			idPerfil = 0L;
+			FacesContext.getCurrentInstance().addMessage("Pessoa", new FacesMessage("Usuario cadastrado com sucesso!"));
+			setPessoa(new Pessoa());
+			atualizarPessoa();
+			RequestContext.getCurrentInstance().execute("PF('usuarioDl').hide()");
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage("Aviso!", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ocorreu um erro ao incluir o usuário. Entre em contato com administrador!"));
+			e.printStackTrace();
+		}	
 	}
 	
 	public void editarPessoa(Pessoa pes){
