@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
 
+
 import modelo.Perfil;
 import modelo.Pessoa;
 import service.PerfilService;
@@ -90,14 +91,15 @@ public class PessoaBean {
 				pessoaService.merge(getPessoa());
 			} else {
 				pessoaService.create(getPessoa());
+				
 			}
-			
 			
 			idPerfil = 0L;
 			FacesContext.getCurrentInstance().addMessage("Pessoa", new FacesMessage("Usuario cadastrado com sucesso!"));
 			setPessoa(new Pessoa());
 			atualizarPessoa();
 			RequestContext.getCurrentInstance().execute("PF('usuarioDl').hide()");
+			
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage("Aviso!", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ocorreu um erro ao incluir o usuário. Entre em contato com administrador!"));
 			e.printStackTrace();
@@ -120,7 +122,26 @@ public class PessoaBean {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 	
+	public void exibirTelaCadastroUsuario(Pessoa p) {
+		if(getPessoa().getId() == null) {
+			setPessoa(new Pessoa());
+			RequestContext.getCurrentInstance().execute("PF('usuarioDl').show()");
+		} else {
+			setPessoa(new Pessoa());
+			RequestContext.getCurrentInstance().execute("PF('usuarioDl').show()");
+		}
+		setPessoa(new Pessoa());
+	}
 	
-
+	public void fecharTelaEditarUsuario(Pessoa p) {
+		if (getPessoa().getId() != null) {
+			setPessoa(new Pessoa());
+			RequestContext.getCurrentInstance().execute("PF('usuarioDl').hide()");
+		} else {
+			RequestContext.getCurrentInstance().execute("PF('usuarioDl').hide()");
+		}
+		
+	}
+	
 
 }
