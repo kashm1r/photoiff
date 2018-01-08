@@ -9,12 +9,12 @@
 	<ui:define name="titulo">Novo Usuario</ui:define>
 	<ui:define name="conteudo">
 		
-		<p:dialog widgetVar="usuarioDl" modal="true" resizable="false" position="center top"
-		>
+		<p:dialog widgetVar="usuarioDl" modal="true" resizable="false" position="center top">
 		<h:form id="formLivro1">
 				
 			<p:growl autoUpdate="true" showDetail="true" life="5000" />
 			<h:panelGrid columns="2">
+				
 				<p:outputLabel value="NOME: " for="nome" />
 				<p:inputText value="#{pessoaBean.pessoa.nome}" id="nome" required="true" requiredMessage="Nome Obrigatório ou Somente Letras"/>
 				
@@ -50,13 +50,21 @@
 			
 			<br></br>
 			<p:commandButton actionListener="#{pessoaBean.gravarPessoa()}" value="Gravar" update=":formLivro1, :formList1"/>
+		    <p:commandButton immediate="true" value="Cancelar" action="#{pessoaBean.fecharTelaEditarUsuario(pessoas)}"/>
 			
 		</h:form>
 		</p:dialog>
 		
 		<h:form id="formList1">	
 		
-		<p:commandButton value="Incluir Usuario" onclick="PF('usuarioDl').show()"/>
+		<br/>
+		
+		<p:commandButton value="Incluir Usuario" action="#{pessoaBean.exibirTelaCadastroUsuario(pessoas)}"
+						 update=":formLivro1"/>
+		<!--<p:commandButton value="Incluir Usuario" onclick="PF('usuarioDl').show()"/>-->
+		
+		<br/>
+		<br/>
 		
 		<p:growl autoUpdate="true" id="mensagem" showDetail="true" life="5000" />
 		<p:dataTable value="#{pessoaBean.listaPessoas}" var="pessoas" cellpadding="3" border="1"
@@ -66,7 +74,7 @@
 				<p:outputLabel value="#{pessoas.nome}" />
 			</p:column>
 			
-			<p:column headerText="Sobreome">
+			<p:column headerText="Sobrenome">
 				<p:outputLabel value="#{pessoas.sobrenome}" />
 			</p:column>
 						
@@ -75,7 +83,8 @@
 			</p:column>
 				
 			<p:column>
-				<p:commandButton actionListener="#{pessoaBean.editarPessoa(pessoas)}" value="Editar" update=":formLivro1"/>
+				<p:commandButton actionListener="#{pessoaBean.editarPessoa(pessoas)}" value="Editar" 
+				onclick="PF('usuarioDl').show()" update=":formLivro1"/>
 			</p:column>
 			
 			<p:column>
