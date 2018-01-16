@@ -11,9 +11,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.RequestContext;
 
 import modelo.Menu;
 import modelo.MenuItem;
+import modelo.Pessoa;
 import service.MenuItemService;
 import service.MenuService;
 
@@ -82,24 +84,69 @@ public class MenuBean{
 		getMenu().AddMenuItem(menuItemService.obtemPorId(idMenuItem));
 		idMenuItem=0L;
 	}
-		
+	
 	public void gravarMenu() {
-		if(getMenu().getId() != null) {
-			menuService.merge(getMenu());
+		try {
+			if(idMenuItem == 0) {
+				FacesContext.getCurrentInstance().addMessage("Menu", new FacesMessage("SubMenu Inv·lido!"));
+			}else {
+				//getMenu()idMenuItem.(menuItemService.obtemPorId(idMenuItem));
+			}
+			if(getMenu().getId() != null) {
+				menuService.merge(getMenu());
+				
+			}else {
+				menuService.create(getMenu());
+			}		
+				
+			idMenuItem = 0L;
+			setMenu(new Menu());
+			FacesContext.getCurrentInstance().addMessage("Sucesso!", new FacesMessage("Menu Cadastrado com Sucesso!"));
+			atualizarMenu();
+			RequestContext.getCurrentInstance().execute("PF('menuDl').hide()");
 			
-		}else {
-			menuService.create(getMenu());
-		}		
-			
-		atualizarMenu();
-		setMenu(new Menu());
-		FacesContext.getCurrentInstance().addMessage("Sucesso!", new FacesMessage("Menu Cadastrado com Sucesso!"));
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage("Aviso!", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ocorreu um erro ao incluir o usu√°rio. Entre em contato com administrador!"));
+			e.printStackTrace();
+		}	
 
 	}
 	
 	
 	public void editarMenu(Menu men) {
-		setMenu(men);		
+		setMenu(men);	
+		
+	}
+	
+	public void deletarMenu(Menu men){
+		menuService.remove(men);
+		atualizarMenu();
+		 addMessage("Aviso", "Menu deletado com sucesso!");
+	}
+	
+	public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+	
+	public void exibirTelaCadastroMenu(Menu m) {
+		if(getMenu().getId() == null) {
+			setMenu(new Menu());
+			RequestContext.getCurrentInstance().execute("PF('menuDl').show()");
+		} else {
+			setMenu(new Menu());
+			RequestContext.getCurrentInstance().execute("PF('menuDl').show()");
+		}
+		setMenu(new Menu());
+	}
+	
+	public void fecharTelaEditarUsuario(Pessoa p) {
+		if(getMenu().getId() == null) {
+			setMenu(new Menu());
+			RequestContext.getCurrentInstance().execute("PF('menuDl').hide()");
+		} else {
+			RequestContext.getCurrentInstance().execute("PF('menuDl').hide()");
+		}
 		
 	}
 	

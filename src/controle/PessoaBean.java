@@ -83,7 +83,7 @@ public class PessoaBean {
 	public void gravarPessoa(){
 		try {
 			if(idPerfil == 0) {
-				FacesContext.getCurrentInstance().addMessage("Pessoa", new FacesMessage("Perfil Inv√°lido"));
+				FacesContext.getCurrentInstance().addMessage("Pessoa", new FacesMessage("Perfil Inv·lido"));
 			}else {
 				getPessoa().setPerfil(perfilService.obtemPorId(idPerfil));
 			}
@@ -114,7 +114,7 @@ public class PessoaBean {
 	public void deletarPessoa(Pessoa pess){
 		pessoaService.remove(pess);
 		atualizarPessoa();
-		 addMessage("Aviso", "Usu√°rio deletado com sucesso!");
+		 addMessage("Aviso", "Usu·rio deletado com sucesso!");
 	}
 	
 	public void addMessage(String summary, String detail) {

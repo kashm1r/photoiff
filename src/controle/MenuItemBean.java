@@ -10,6 +10,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.RequestContext;
+
 import modelo.MenuItem;
 import service.MenuItemService;
 
@@ -51,20 +53,60 @@ public class MenuItemBean {
 	}
 	
 	public void gravarMenuItem() {
-		if(getMenuItem().getId() != null) {
-			menuItemService.merge(getMenuItem());
-		} else {
-			menuItemService.create(getMenuItem());
-		}
-		
-		atualizarMenuItem();
-		setMenuItem(new MenuItem());
-		FacesContext.getCurrentInstance().addMessage("Sucesso!", new FacesMessage("Sub-Menu Cadastrado com Sucesso!"));
+		try {
+			if(getMenuItem().getId() != null) {
+				menuItemService.merge(getMenuItem());
+			} else {
+				menuItemService.create(getMenuItem());
+			}
+			
+			setMenuItem(new MenuItem());
+			FacesContext.getCurrentInstance().addMessage("Sucesso!", new FacesMessage("Sub-Menu Cadastrado com Sucesso!"));
+			atualizarMenuItem();
+			RequestContext.getCurrentInstance().execute("PF('subMenuDl').hide()");
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage("Aviso!", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ocorreu um erro ao incluir o usuário. Entre em contato com administrador!"));
+			e.printStackTrace();
+		}	
 	}
 	
 	public void editarMenuItem(MenuItem menu) {
 		setMenuItem(menu);
 	}
+	
+	public void deletarMenuItem(MenuItem menu){
+		menuItemService.remove(menu);
+		atualizarMenuItem();
+		 addMessage("Aviso", "SubMenu deletado com sucesso!");
+	}
+	
+	public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+	
+	public void exibirTelaCadastroSubMenu(MenuItem mI) {
+		if(getMenuItem().getId() == null) {
+			setMenuItem(new MenuItem());
+			RequestContext.getCurrentInstance().execute("PF('subMenuDl').show()");
+		} else {
+			setMenuItem(new MenuItem());
+			RequestContext.getCurrentInstance().execute("PF('subMenuDl').show()");
+		}
+		setMenuItem(new MenuItem());
+	}
+	
+	public void fecharTelaEditarSubMenu(MenuItem mI) {
+		if (getMenuItem().getId() != null) {
+			setMenuItem(new MenuItem());
+			RequestContext.getCurrentInstance().execute("PF('subMenuDl').hide()");
+		} else {
+			RequestContext.getCurrentInstance().execute("PF('subMenuDl').hide()");
+		}
+		
+	}
+	
+	
 	
 
 }
