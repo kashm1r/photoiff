@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/templates/template.xhtml">
+		<ui:define name="titulo">Novo Menu</ui:define>
+		<ui:define name="conteudo">
+		
+			<p:dialog widgetVar="menuDl" modal="true" resizable="false" position="center top">
+			<h:form id="formMenu">
+			
+				<p:growl autoUpdate="true" showDetail="true" life="5000" />
+				<p:fieldset legend="SUBMENUS:" id="formSubMenus" >
+				<h:panelGrid columns="3">
+				
+					<p:outputLabel value="SubMenus:"/>
+					<p:selectOneMenu value="#{menuBean.idMenuItem}">
+						<f:selectItem itemValue="0" itemLabel="Selecione..."/>
+						<f:selectItems value="#{menuBean.listaMenuItens}" var="submenu" 
+						itemLabel="#{submenu.nome}" itemValue="#{submenu.id}"/>
+					</p:selectOneMenu>					
+					<br/>
+					<p:commandButton value="Inserir SubMenu" action="#{menuBean.addMenuItens()}"/>
+				</h:panelGrid>	
+				</p:fieldset>
+				
+				<br/>
+				<br/>
+				
+				<h:panelGrid columns="2">
+				
+					<p:outputLabel value="NOME: " for="nome" />
+					<p:inputText value="#{menuBean.menu.nome}" id="nome" required="true" 
+					             requiredMessage="Nome Obrigatório ou Somente Letras"/>
+				
+				</h:panelGrid>
+			
+			</h:form>
+			</p:dialog>
+			
+			<h:form id="formListPerfil">		
+			<br/>
+		
+			<p:commandButton value="Incluir Pefil" action=""
+			     			 update=":formPerfil"/>
+			<br/>
+			<br/>
+			
+			</h:form>
+		
+		</ui:define>
+	</ui:composition>	
+</html>	

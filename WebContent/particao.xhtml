@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/template.xhtml">
+	<ui:define name="titulo">Novo Usuario</ui:define>
+	<ui:define name="conteudo">
+		
+		<p:dialog widgetVar="particaoDl" modal="true" resizable="false" position="center top">
+		
+			<h:form id="formLivro1">
+			
+			</h:form>
+		
+		</p:dialog>
+		
+		<h:form id="formList1">	
+		
+			<br/>
+		
+			<p:commandButton value="Incluir Partição" onclick="PF('particaoDl').show()"/>
+			
+			<br/>
+			<br/>
+			
+			<p:growl autoUpdate="true" id="mensagem" showDetail="true" life="5000" />
+			<p:dataTable value="#{pessoaBean.listaPessoas}" var="pessoas" cellpadding="3" border="1"
+			paginator="true" rows="10" style="width:98%">
+				
+				<p:column headerText="Id">
+					<p:outputLabel value="#{pessoas.nome}" />
+				</p:column>
+				
+				<p:column headerText="Diretório Pai">
+					<p:outputLabel value="#{pessoas.sobrenome}" />
+				</p:column>
+				
+				<p:column headerText="SubDiretórios">
+					<p:outputLabel value="#{pessoas.perfil}" />
+				</p:column>
+					
+				<p:column>
+					<p:commandButton actionListener="#{pessoaBean.editarPessoa(pessoas)}" value="Editar" 
+					onclick="PF('usuarioDl').show()" update=":formLivro1"/>
+				</p:column>
+				
+				<p:column>
+					<p:commandButton actionListener="#{pessoaBean.deletarPessoa(pessoas)}" value="Deletar" update=":formList1">
+						<p:confirm header="Aviso" message="Deseja apagar o usuário?" icon="ui-icon-alert" />
+					</p:commandButton>
+				</p:column>
+				
+			</p:dataTable>
+				
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+	        		<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+	        		<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	    		</p:confirmDialog>
+    		
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>	

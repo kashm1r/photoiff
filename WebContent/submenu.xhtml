@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/templates/template.xhtml">
+		<ui:define name="titulo">Novo SubMenu</ui:define>
+		<ui:define name="conteudo">
+		
+			<p:dialog widgetVar="subMenuDl" modal="true" resizable="false" position="center top">
+			<h:form id="formSubMenu">
+			
+				<p:growl autoUpdate="true" showDetail="true" life="5000" />
+				<h:panelGrid columns="2">
+					
+					<p:outputLabel value="NOME: " for="nome" />
+					<p:inputText value="#{menuItemBean.menuItem.nome}" id="nome" required="true" requiredMessage="Nome Obrigatório ou Somente Letras"/>
+					
+					<p:outputLabel value="URL: " for="url" />
+					<p:inputText value="#{menuItemBean.menuItem.url}" id="url" required="true" requiredMessage="Nome Obrigatório ou Somente Letras"/>
+				
+				
+				</h:panelGrid>
+			<br/>	
+				<p:commandButton actionListener="#{menuItemBean.gravarMenuItem()}" value="Gravar" update=":formSubMenu, :formListSubMenu"/>
+				<p:commandButton immediate="true" value="Cancelar" action="#{menuItemBean.fecharTelaEditarSubMenu(submenus)}"/>
+			</h:form>
+			</p:dialog>
+			
+			<h:form id="formListSubMenu">	
+		
+			<br/>
+		
+				<p:commandButton value="Incluir Usuario" action="#{menuItemBean.exibirTelaCadastroSubMenu(submenus)}"
+					      		 update=":formSubMenu"/>
+		
+			<br/>
+		    <br/>
+		    
+		    	<p:growl autoUpdate="true" id="mensagem" showDetail="true" life="5000" />
+				<p:dataTable value="#{menuItemBean.listaMenuItens}" var="submenus" cellpadding="3" border="1"
+							 paginator="true" rows="10" style="width:98%">
+							 
+					<p:column headerText="Nome">
+						<p:outputLabel value="#{submenus.nome}" />
+					</p:column>
+					
+					<p:column headerText="URL">
+						<p:outputLabel value="#{submenus.url}" />
+					</p:column>
+					
+					<p:column>
+						<p:commandButton actionListener="#{menuItemBean.editarMenuItem(submenus)}" value="Editar" 
+										 onclick="PF('subMenuDl').show()" update=":formSubMenu"/>
+					</p:column>
+			
+					<p:column>
+						<p:commandButton actionListener="#{menuItemBean.deletarMenuItem(submenus)}" value="Deletar" update=":formListSubMenu">
+							<p:confirm header="Aviso" message="Deseja apagar o usuário?" icon="ui-icon-alert" />
+						</p:commandButton>
+					</p:column>
+				
+				</p:dataTable>
+				
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        			<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        			<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />	
+    			</p:confirmDialog>
+		    
+		    </h:form>
+		
+		</ui:define>
+	</ui:composition>
+</html>	

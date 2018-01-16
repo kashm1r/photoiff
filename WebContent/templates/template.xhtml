@@ -30,9 +30,15 @@
 		    		    <p:submenu label="Configurações">
             				<p:menuitem value="Ger. Usuario" outcome="usuario.xhtml" icon="ui-icon-extlink"/>
             				<p:menuitem value="Ger. Partições" outcome="home.xhtml" icon="ui-icon-extlink"/>
-            				<p:menuitem value="Home" outcome="home.xhtml" icon="ui-icon-star"/>
+            				<p:submenu label = "Administrativo">
+            					<p:menuitem value="Ger. SubMenus" outcome="submenu.xhtml" icon="ui-icon-extlink"/>
+            					<p:menuitem value="Ger. Menus" outcome="menu.xhtml" icon="ui-icon-extlink"/>
+            					<p:menuitem value="Ger. Perfil" outcome="perfil.xhtml" icon="ui-icon-extlink"/>
+            				</p:submenu>
         				</p:submenu>
     				</p:menu>
+    				<br/>
+    				<center><p:button value="Home" href="home.xhtml" icon="ui-icon-star"/></center>
     				
     			</h:form>	
 			</div>
