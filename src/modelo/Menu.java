@@ -48,21 +48,16 @@ public class Menu {
 		this.nome = nome;
 	}
 	
-	public void AddMenuItem (MenuItem m) {
-		getItens().add(m);
+	public void AddMenuItem (List<MenuItem> itens) {
+		getItens().clear();
+		getItens().addAll(itens);
 	}
-
-
-	/*@Override
-	public String toString() {
-		return "Menu [nome=" + nome + ", itens=" + itens + "]";
-	}*/
 	
 	@Override
 	public String toString() {
 		return nome;
 	}
 	
-	
+
 
 }

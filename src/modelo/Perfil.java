@@ -48,16 +48,11 @@ public class Perfil {
 		this.id = id;
 	}
 	
-	public void addMenu (Menu m) {
-		getMenus().add(m);
+	public void addMenu (List<Menu> m) {
+		getMenus().clear();
+		getMenus().addAll(m);
 	}
 
-
-	/*@Override
-	public String toString() {
-		return "Perfil [nome=" + nome + ", menus=" + menus + "]";
-	}*/
-	
 	@Override
 	public String toString() {
 		return nome;
