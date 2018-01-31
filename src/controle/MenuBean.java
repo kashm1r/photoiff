@@ -11,11 +11,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+
 import org.primefaces.context.RequestContext;
 
 import modelo.Menu;
 import modelo.MenuItem;
-import modelo.Pessoa;
 import service.MenuItemService;
 import service.MenuService;
 
@@ -37,6 +37,16 @@ public class MenuBean{
 	
 	private List<MenuItem> listaMenuItens = new ArrayList<MenuItem>();
 	
+	private List<String> subMenusSelecionados = new ArrayList<String>();
+		
+	public List<String> getSubMenusSelecionados() {
+		return subMenusSelecionados;
+	}
+
+	public void setSubMenusSelecionados(List<String> subMenusSelecionados) {
+		this.subMenusSelecionados = subMenusSelecionados;
+	}
+
 	public Long getIdMenuItem() {
 		return idMenuItem;
 	}
@@ -79,43 +89,35 @@ public class MenuBean{
 		getListaMenus().clear();
 		setListaMenus(menuService.obtemMenuComMenuItens());
 	}
-	
-	public void addMenuItens() {
-		getMenu().AddMenuItem(menuItemService.obtemPorId(idMenuItem));
-		idMenuItem=0L;
-	}
-	
+		
 	public void gravarMenu() {
 		try {
-			if(idMenuItem == 0) {
-				FacesContext.getCurrentInstance().addMessage("Menu", new FacesMessage("SubMenu Inv·lido!"));
-			}else {
-				//getMenu()idMenuItem.(menuItemService.obtemPorId(idMenuItem));
-			}
-			if(getMenu().getId() != null) {
-				menuService.merge(getMenu());
+				List<MenuItem> itensSelecionados = new ArrayList<MenuItem>();
+				for(String item : subMenusSelecionados) {
+					itensSelecionados.add(menuItemService.obtemPorId(Long.parseLong(item)));
+				}
+				getMenu().AddMenuItem(itensSelecionados);
+				if(getMenu().getId()!= null){
+					menuService.merge(getMenu());
+				} else {
+					menuService.create(getMenu());
+				}
 				
-			}else {
-				menuService.create(getMenu());
-			}		
-				
-			idMenuItem = 0L;
-			setMenu(new Menu());
-			FacesContext.getCurrentInstance().addMessage("Sucesso!", new FacesMessage("Menu Cadastrado com Sucesso!"));
-			atualizarMenu();
-			RequestContext.getCurrentInstance().execute("PF('menuDl').hide()");
-			
+				idMenuItem = 0L;
+				FacesContext.getCurrentInstance().addMessage("Menu", new FacesMessage("Menu cadastrado com sucesso!"));
+				setMenu(new Menu());
+				atualizarMenu();
+				RequestContext.getCurrentInstance().execute("PF('menuDl').hide()");
+		
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage("Aviso!", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ocorreu um erro ao incluir o usu√°rio. Entre em contato com administrador!"));
+			FacesContext.getCurrentInstance().addMessage("Aviso!", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ocorreu um erro ao incluir o menu. Entre em contato com administrador!"));
 			e.printStackTrace();
-		}	
-
+		}
 	}
 	
 	
 	public void editarMenu(Menu men) {
-		setMenu(men);	
-		
+		setMenu(men);			
 	}
 	
 	public void deletarMenu(Menu men){
@@ -140,7 +142,7 @@ public class MenuBean{
 		setMenu(new Menu());
 	}
 	
-	public void fecharTelaEditarUsuario(Pessoa p) {
+	public void fecharTelaEditarMenu(Menu m) {
 		if(getMenu().getId() == null) {
 			setMenu(new Menu());
 			RequestContext.getCurrentInstance().execute("PF('menuDl').hide()");
@@ -149,6 +151,5 @@ public class MenuBean{
 		}
 		
 	}
-	
 
 }

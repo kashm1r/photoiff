@@ -3,7 +3,8 @@ package controle;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
+//import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -13,7 +14,7 @@ import modelo.Pessoa;
 import service.PessoaService;
 
 
-@ViewScoped
+@SessionScoped
 @ManagedBean
 public class ValidarBean {
 	
@@ -22,7 +23,16 @@ public class ValidarBean {
 	
 	private String loginUser = "";
 	private String senhaUser = "";	
-	
+	private Pessoa usuario;
+		
+	public Pessoa getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Pessoa usuario) {
+		this.usuario = usuario;
+	}
+
 	public String getLoginUser() {
 		return loginUser;
 	}
@@ -59,6 +69,8 @@ public class ValidarBean {
 	        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Mensagem:", "Usuário ou senha invalido!"));
 		}
 	}
+	
+
 	
 
 }

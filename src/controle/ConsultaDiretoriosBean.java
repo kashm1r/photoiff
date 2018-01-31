@@ -6,18 +6,22 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
 import modelo.Diretorio;
+import modelo.Pessoa;
 import service.DiretorioService;
 
 
 
-@ViewScoped
+@SessionScoped
 @ManagedBean
 public class ConsultaDiretoriosBean {
 
@@ -29,7 +33,17 @@ public class ConsultaDiretoriosBean {
 	
 	private TreeNode selectedNode;
 	
+	private String usuarioLogado;
 	
+	
+
+	public String getUsuarioLogado() {
+		return usuarioLogado;
+	}
+
+	public void setUsuarioLogado(String usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
+	}
 
 	public TreeNode getSelectedNode() {
 		return selectedNode;
@@ -41,6 +55,11 @@ public class ConsultaDiretoriosBean {
 
 	@PostConstruct
 	public void consultar() {
+		final ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext(); 
+		final HttpSession session = (HttpSession) ec.getSession(true);
+		Pessoa user = (Pessoa) session.getAttribute("usuario");
+		setUsuarioLogado(user.getNome());
+		
 		List<Diretorio> diretorioRaizes = diretoriosService.raizesComNos();
 
 		raiz = new DefaultTreeNode("Raiz", null);

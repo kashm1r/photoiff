@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
 
+import modelo.Menu;
 import modelo.MenuItem;
 import service.MenuItemService;
 
@@ -25,6 +26,16 @@ public class MenuItemBean {
 	private MenuItem menuItem = new MenuItem();
 	
 	private List<MenuItem> listaMenuItens = new ArrayList<MenuItem>();
+	
+	private Menu menu = new Menu();
+	
+	public Menu getMenu() {
+		return menu;
+	}
+
+	public void setMenu(Menu menu) {
+		this.menu = menu;
+	}
 
 	public MenuItem getMenuItem() {
 		return menuItem;
@@ -75,6 +86,7 @@ public class MenuItemBean {
 	}
 	
 	public void deletarMenuItem(MenuItem menu){
+	
 		menuItemService.remove(menu);
 		atualizarMenuItem();
 		 addMessage("Aviso", "SubMenu deletado com sucesso!");

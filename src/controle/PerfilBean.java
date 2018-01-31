@@ -10,6 +10,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.RequestContext;
+
 import modelo.Menu;
 import modelo.MenuItem;
 import modelo.Perfil;
@@ -40,6 +42,15 @@ public class PerfilBean {
 	
 	private List<MenuItem> listaMenuItens = new ArrayList<MenuItem>();
 	
+	private List<String> listaPerfisSelecionados = new ArrayList<String>();
+	
+	public List<String> getListaPerfisSelecionados() {
+		return listaPerfisSelecionados;
+	}
+
+	public void setListaPerfisSelecionados(List<String> listaPerfisSelecionados) {
+		this.listaPerfisSelecionados = listaPerfisSelecionados;
+	}
 
 	public Long getIdMenu() {
 		return idMenu;
@@ -92,21 +103,27 @@ public class PerfilBean {
 		setListaPerfis(perfilService.obtemPerfilComMenus());
 	}
 	
-	public void addMenus() {
-		getPerfil().addMenu(menuService.obtemPorId(idMenu));
-		idMenu = 0L;
-	}
-	
 	public void gravarPerfil(){
-		if(getPerfil().getId()!= null){
-			perfilService.merge(getPerfil());
-		} else {
-			perfilService.create(getPerfil());
+		try {
+			
+			List<Menu> perfisSelecionados = new ArrayList<Menu>();
+			for(String perfis : listaPerfisSelecionados) {
+				perfisSelecionados.add(menuService.obtemPorId(Long.parseLong(perfis)));
+			}
+			getPerfil().addMenu(perfisSelecionados);
+			if(getPerfil().getId() != null) {
+				perfilService.merge(getPerfil());
+			} else {
+				perfilService.create(getPerfil());
+			}	
+				FacesContext.getCurrentInstance().addMessage("Perfil", new FacesMessage("Perfil cadastrado com sucesso!"));
+				setPerfil(new Perfil());
+				atualizarPerfis();
+				RequestContext.getCurrentInstance().execute("PF('perfilDl').hide()");
+		} catch (Exception e) { 
+			FacesContext.getCurrentInstance().addMessage("Aviso!", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Ocorreu um erro ao incluir o perfil. Entre em contato com administrador!"));
+			e.printStackTrace();
 		}
-		
-		atualizarPerfis();
-		FacesContext.getCurrentInstance().addMessage("Sucesso!", new FacesMessage("Perfil Cadastrado com Sucesso!"));
-		setPerfil(new Perfil());
 	}
 	
 	public void editarPerfil(Perfil per){
@@ -116,5 +133,32 @@ public class PerfilBean {
 	public void deletarPerfil(Perfil perf){
 		perfilService.remove(perf);
 		atualizarPerfis();
+		addMessage("Aviso", "Perfil deletado com sucesso!");
+	}
+	
+	public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+	
+	public void exibirTelaCadastroPerfil(Perfil p) {
+		if(getPerfil().getId() == null) {
+			setPerfil(new Perfil());
+			RequestContext.getCurrentInstance().execute("PF('perfilDl').show()");
+		} else {
+			setPerfil(new Perfil());
+			RequestContext.getCurrentInstance().execute("PF('perfilDl').show()");
+		}
+		setPerfil(new Perfil());
+	}
+	
+	public void fecharTelaEditarPerfil(Perfil p) {
+		if(getPerfil().getId() == null) {
+			setPerfil(new Perfil());
+			RequestContext.getCurrentInstance().execute("PF('perfilDl').hide()");
+		} else {
+			RequestContext.getCurrentInstance().execute("PF('perfilDl').hide()");
+		}
+		
 	}
 }
