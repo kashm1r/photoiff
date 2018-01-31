@@ -38,7 +38,7 @@
 			<p:fieldset legend="PERFIS:" id="formAutores" >
 				<h:panelGrid columns="3">
 				
-					<p:outputLabel value="Perfis:"/>
+					<p:outputLabel value="Perfis"/>
 					<p:selectOneMenu value="#{pessoaBean.idPerfil}">
 						<f:selectItem itemValue="0" itemLabel="Selecione..."/>
 						<f:selectItems value="#{pessoaBean.listaPerfis}" var="perfil" 
@@ -49,8 +49,10 @@
 			</p:fieldset>
 			
 			<br></br>
-			<p:commandButton actionListener="#{pessoaBean.gravarPessoa()}" value="Gravar" update=":formLivro1, :formList1"/>
-		    <p:commandButton immediate="true" value="Cancelar" action="#{pessoaBean.fecharTelaEditarUsuario(pessoas)}"/>
+			<p:commandButton actionListener="#{pessoaBean.gravarPessoa()}" value="Confirmar" update=":formLivro1, :formList1"
+							 icon="ui-icon-check"/>				 
+		    <p:commandButton immediate="true" value="Cancelar" action="#{pessoaBean.fecharTelaEditarUsuario(pessoas)}"
+		    				 icon="ui-icon-close"/>
 			
 		</h:form>
 		</p:dialog>
@@ -60,15 +62,14 @@
 		<br/>
 		
 		<p:commandButton value="Incluir Usuario" action="#{pessoaBean.exibirTelaCadastroUsuario(pessoas)}"
-						 update=":formLivro1"/>
-		<!--<p:commandButton value="Incluir Usuario" onclick="PF('usuarioDl').show()"/>-->
-		
+						 update=":formLivro1" icon="ui-icon-plus"/>
+
 		<br/>
 		<br/>
 		
 		<p:growl autoUpdate="true" id="mensagem" showDetail="true" life="5000" />
 		<p:dataTable value="#{pessoaBean.listaPessoas}" var="pessoas" cellpadding="3" border="1"
-		paginator="true" rows="10" style="width:98%">
+				 	 paginator="true" rows="10" style="width:98%">
 			
 			<p:column headerText="Nome">
 				<p:outputLabel value="#{pessoas.nome}" />
@@ -84,11 +85,12 @@
 				
 			<p:column>
 				<p:commandButton actionListener="#{pessoaBean.editarPessoa(pessoas)}" value="Editar" 
-				onclick="PF('usuarioDl').show()" update=":formLivro1"/>
+				onclick="PF('usuarioDl').show()" update=":formLivro1" icon="ui-icon-pencil"/>
 			</p:column>
 			
 			<p:column>
-				<p:commandButton actionListener="#{pessoaBean.deletarPessoa(pessoas)}" value="Deletar" update=":formList1">
+				<p:commandButton actionListener="#{pessoaBean.deletarPessoa(pessoas)}" value="Deletar" update=":formList1"
+								 icon="ui-icon-trash">
 					<p:confirm header="Aviso" message="Deseja apagar o usuário?" icon="ui-icon-alert" />
 				</p:commandButton>
 			</p:column>

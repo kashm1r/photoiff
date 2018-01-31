@@ -10,47 +10,73 @@
 		<ui:define name="conteudo">
 		
 			<p:dialog widgetVar="menuDl" modal="true" resizable="false" position="center top">
-			<h:form id="formMenu">
-			
-				<p:growl autoUpdate="true" showDetail="true" life="5000" />
-				<p:fieldset legend="SUBMENUS:" id="formSubMenus" >
-				<h:panelGrid columns="3">
+				<h:form id="formMenu">
 				
-					<p:outputLabel value="SubMenus:"/>
-					<p:selectOneMenu value="#{menuBean.idMenuItem}">
-						<f:selectItem itemValue="0" itemLabel="Selecione..."/>
-						<f:selectItems value="#{menuBean.listaMenuItens}" var="submenu" 
-						itemLabel="#{submenu.nome}" itemValue="#{submenu.id}"/>
-					</p:selectOneMenu>					
+					<p:growl autoUpdate="true" showDetail="true" life="5000"/>
+					<h:panelGrid columns="2">
+						<p:outputLabel value="NOME" for="nome"/>
+						<p:inputText value="#{menuBean.menu.nome}" id="nome" required="true" requiredMessage="Nome obrigatório!"/>	
+					</h:panelGrid>
+					
 					<br/>
-					<p:commandButton value="Inserir SubMenu" action="#{menuBean.addMenuItens()}"/>
-				</h:panelGrid>	
-				</p:fieldset>
-				
-				<br/>
-				<br/>
-				
-				<h:panelGrid columns="2">
-				
-					<p:outputLabel value="NOME: " for="nome" />
-					<p:inputText value="#{menuBean.menu.nome}" id="nome" required="true" 
-					             requiredMessage="Nome Obrigatório ou Somente Letras"/>
-				
-				</h:panelGrid>
+					
+					<p:fieldset legend="SUBMENUS" id="formListaSubMenus">
+						<p:selectManyCheckbox id="grid" value="#{menuBean.subMenusSelecionados}" layout="grid" columns="3">
+        					<f:selectItems value="#{menuBean.listaMenuItens}" var="submenu" itemLabel="#{submenu.nome}" 
+        								   itemValue="#{submenu.id}" />
+    					</p:selectManyCheckbox>
+					</p:fieldset>
+					
+					<br/><br/>
+					
+					<p:commandButton value="Confirmar" action="#{menuBean.gravarMenu()}" update=":formMenu, :formListMenu"
+									 icon="ui-icon-check"/>
+					<p:commandButton value="Cancelar" action="#{menuBean.fecharTelaEditarMenu(menus)}" immediate="true"
+									 icon="ui-icon-close"/>
 			
-			</h:form>
+				</h:form>
 			</p:dialog>
 			
-			<h:form id="formListPerfil">		
-			<br/>
-		
-			<p:commandButton value="Incluir Pefil" action=""
-			     			 update=":formPerfil"/>
-			<br/>
-			<br/>
-			
-			</h:form>
-		
+			<h:form id="formListMenu">
+				
+				<br/>
+				
+				<p:commandButton value="Incluir Menu" action="#{menuBean.exibirTelaCadastroMenu(menus)}" update=":formMenu"
+								 icon="ui-icon-plus"/>
+				
+				<br/><br/>
+				
+				<p:growl autoUpdate="true" showDetail="true" life="5000"/>
+				<p:dataTable id="listaMenus" value="#{menuBean.listaMenus}" var="menus" cellpadding="3" border="1"
+							 paginator="true" rows="10" style="width:98%">
+				
+					<p:column headerText="Nome">
+						<p:outputLabel value="#{menus.nome}"/>
+					</p:column>		
+					
+					<p:column headerText="SubMenu">
+						<p:outputLabel value="#{menus.itens}"/>
+					</p:column>
+					
+					<p:column>
+						<p:commandButton process="listaMenus" value="Editar" action="#{menuBean.editarMenu(menus)}" onclick="PF('menuDl').show()"
+											 update=":formMenu" icon="ui-icon-pencil"/>
+					</p:column>
+						
+					<p:column>
+						<p:commandButton process="listaMenus" value="Deletar" actionListener="#{menuBean.deletarMenu(menus)}" update=":formListMenu"
+											 icon="ui-icon-trash">
+							<p:confirmDialog header="Aviso" message="Deseja apagar o menu?" icon="ui-icon-alert"/>
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        			<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        			<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    			</p:confirmDialog>	
+    					
+			</h:form>			
 		</ui:define>
 	</ui:composition>	
 </html>	

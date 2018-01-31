@@ -10,47 +10,75 @@
 		<ui:define name="conteudo">
 		
 			<p:dialog widgetVar="perfilDl" modal="true" resizable="false" position="center top">
-			<h:form id="formPerfil">
-			
-				<p:growl autoUpdate="true" showDetail="true" life="5000" />
-				<p:fieldset legend="MENUS:" id="formSubMenus" >
-				<h:panelGrid columns="3">
+				<h:form id="formPerfil">
 				
-					<p:outputLabel value="Menus:"/>
-					<p:selectOneMenu value="#{perfilBean.idMenu}">
-						<f:selectItem itemValue="0" itemLabel="Selecione..."/>
-						<f:selectItems value="#{perfilBean.listaMenus}" var="menu" 
-						itemLabel="#{menu.nome}" itemValue="#{menu.id}"/>
-					</p:selectOneMenu>					
+					<p:growl autoUpdate="true" showDetail="true" life="5000"/>
+					<h:panelGrid columns="2">
+						<p:outputLabel value="NOME" for="nome"/>
+						<p:inputText value="#{perfilBean.perfil.nome}" id="nome" required="true" requiredMessage="Nome obrigatório!"/>	
+					</h:panelGrid>
+					
 					<br/>
-					<p:commandButton value="Inserir Menu" action="#{perfilBean.addMenus()}"/>
-				</h:panelGrid>	
-				</p:fieldset>
-				
-				<br/>
-				<br/>
-				
-				<h:panelGrid columns="2">
-				
-					<p:outputLabel value="NOME: " for="nome" />
-					<p:inputText value="#{perfilBean.perfil.nome}" id="nome" required="true" 
-					             requiredMessage="Nome Obrigatório ou Somente Letras"/>
-				
-				</h:panelGrid>
-			
-			</h:form>
+					
+					<p:fieldset legend="MENUS" id="formListaMenus">
+						<p:selectManyCheckbox id="grid" value="#{perfilBean.listaPerfisSelecionados}" layout="grid" columns="3">
+        					<f:selectItems value="#{perfilBean.listaMenus}" var="menu" itemLabel="#{menu.nome}" 
+        								   itemValue="#{menu.id}" />
+    					</p:selectManyCheckbox>
+					</p:fieldset>
+					
+					<br/><br/>
+					
+					<p:commandButton value="Confirmar" action="#{perfilBean.gravarPerfil()}" update=":formPerfil, :formListPerfil"
+									 icon="ui-icon-check"/>
+					<p:commandButton value="Cancelar" action="#{perfilBean.fecharTelaEditarPerfil(perfis)}" immediate="true"
+									 icon="ui-icon-close"/>
+					
+				</h:form>
 			</p:dialog>
 			
-			<h:form id="formListPerfil">		
-			<br/>
-		
-			<p:commandButton value="Incluir Pefil" action=""
-			     			 update=":formPerfil"/>
-			<br/>
-			<br/>
+			<h:form id="formListPerfil">
+				
+				<br/>
+				
+				<p:commandButton value="Incluir Perfil" action="#{perfilBean.exibirTelaCadastroPerfil(perfis)}" update=":formPerfil"
+								 icon="ui-icon-plus"/>
+				
+				<br/><br/>
+				
+				<p:growl autoUpdate="true" showDetail="true" life="5000"/>
+				<p:dataTable id="listaPerfis" value="#{perfilBean.listaPerfis}" var="perfis" cellpadding="3" border="1"
+							 paginator="true" rows="10" style="width:98%">
+							 
+					<p:column headerText="Nome">
+						<p:outputLabel value="#{perfis.nome}"/>
+					</p:column>		
+					
+					<p:column headerText="Menu">
+						<p:outputLabel value="#{perfis.menus}"/>
+					</p:column>
+					
+					<p:column>
+						<p:commandButton process="listaPerfis" value="Editar" action="#{perfilBean.editarPerfil(perfis)}" onclick="PF('perfilDl').show()"
+											 update=":formPerfil" icon="ui-icon-pencil"/>
+					</p:column>
+						
+					<p:column>
+						<p:commandButton process="listaPerfis" value="Deletar" actionListener="#{perfilBean.deletarPerfil(perfis)}" update=":formListPerfil"
+											 icon="ui-icon-trash">
+							<p:confirmDialog header="Aviso" message="Deseja apagar o menu?" icon="ui-icon-alert"/>
+						</p:commandButton>
+					</p:column>
+				
+				</p:dataTable>
+				
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        			<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        			<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    			</p:confirmDialog>	
 			
 			</h:form>
-		
+				
 		</ui:define>
 	</ui:composition>	
 </html>	

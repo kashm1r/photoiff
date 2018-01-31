@@ -24,8 +24,10 @@
 				
 				</h:panelGrid>
 			<br/>	
-				<p:commandButton actionListener="#{menuItemBean.gravarMenuItem()}" value="Gravar" update=":formSubMenu, :formListSubMenu"/>
-				<p:commandButton immediate="true" value="Cancelar" action="#{menuItemBean.fecharTelaEditarSubMenu(submenus)}"/>
+				<p:commandButton actionListener="#{menuItemBean.gravarMenuItem()}" value="Confirmar" update=":formSubMenu, :formListSubMenu"
+								 icon="ui-icon-check"/>
+				<p:commandButton immediate="true" value="Cancelar" action="#{menuItemBean.fecharTelaEditarSubMenu(submenus)}"
+								 icon="ui-icon-close"/>
 			</h:form>
 			</p:dialog>
 			
@@ -33,8 +35,8 @@
 		
 			<br/>
 		
-				<p:commandButton value="Incluir Usuario" action="#{menuItemBean.exibirTelaCadastroSubMenu(submenus)}"
-					      		 update=":formSubMenu"/>
+				<p:commandButton value="Incluir SubMenu" action="#{menuItemBean.exibirTelaCadastroSubMenu(submenus)}"
+					      		 update=":formSubMenu" icon="ui-icon-plus"/>
 		
 			<br/>
 		    <br/>
@@ -53,11 +55,12 @@
 					
 					<p:column>
 						<p:commandButton actionListener="#{menuItemBean.editarMenuItem(submenus)}" value="Editar" 
-										 onclick="PF('subMenuDl').show()" update=":formSubMenu"/>
+										 onclick="PF('subMenuDl').show()" update=":formSubMenu" icon="ui-icon-pencil"/>
 					</p:column>
 			
 					<p:column>
-						<p:commandButton actionListener="#{menuItemBean.deletarMenuItem(submenus)}" value="Deletar" update=":formListSubMenu">
+						<p:commandButton actionListener="#{menuItemBean.deletarMenuItem(submenus)}" value="Deletar" update=":formListSubMenu"
+										 icon="ui-icon-trash">
 							<p:confirm header="Aviso" message="Deseja apagar o usuário?" icon="ui-icon-alert" />
 						</p:commandButton>
 					</p:column>
