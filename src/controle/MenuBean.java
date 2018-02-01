@@ -121,9 +121,14 @@ public class MenuBean{
 	}
 	
 	public void deletarMenu(Menu men){
-		menuService.remove(men);
-		atualizarMenu();
-		 addMessage("Aviso", "Menu deletado com sucesso!");
+		try {	
+			menuService.remove(men);
+			atualizarMenu();
+			 addMessage("Aviso", "Menu deletado com sucesso!");
+		}catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage("Aviso!", new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso","Erro ao excluir menu, o mesmo está vinculado em um perfil!"));
+			e.printStackTrace();
+		}	 
 	}
 	
 	public void addMessage(String summary, String detail) {

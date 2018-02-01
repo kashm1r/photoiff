@@ -86,10 +86,14 @@ public class MenuItemBean {
 	}
 	
 	public void deletarMenuItem(MenuItem menu){
-	
-		menuItemService.remove(menu);
-		atualizarMenuItem();
-		 addMessage("Aviso", "SubMenu deletado com sucesso!");
+		try {
+			menuItemService.remove(menu);
+			atualizarMenuItem();
+			 addMessage("Aviso", "SubMenu deletado com sucesso!");
+		}catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage("Aviso!", new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso","Erro ao excluir submenu, o mesmo está vinculado em um menu!"));
+			e.printStackTrace();
+		}
 	}
 	
 	public void addMessage(String summary, String detail) {

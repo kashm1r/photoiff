@@ -131,9 +131,14 @@ public class PerfilBean {
 	}
 	
 	public void deletarPerfil(Perfil perf){
-		perfilService.remove(perf);
-		atualizarPerfis();
-		addMessage("Aviso", "Perfil deletado com sucesso!");
+		try {
+			perfilService.remove(perf);
+			atualizarPerfis();
+			addMessage("Aviso", "Perfil deletado com sucesso!");
+		}catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage("Aviso!", new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso","Erro ao excluir perfil, o mesmo está vinculado em um usuário!"));
+			e.printStackTrace();
+		}
 	}
 	
 	public void addMessage(String summary, String detail) {
