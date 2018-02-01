@@ -16,22 +16,36 @@
 			<h:panelGrid columns="2">
 				
 				<p:outputLabel value="NOME: " for="nome" />
-				<p:inputText value="#{pessoaBean.pessoa.nome}" id="nome" required="true" requiredMessage="Nome Obrigatório ou Somente Letras"/>
+				<p:inputText value="#{pessoaBean.pessoa.nome}" id="nome" required="true" requiredMessage="Nome Obrigatório ou Somente Letras"
+							 maxlength="30">
+					<p:keyFilter regEx="/[a-z_]/i"/>			 
+				</p:inputText>
 				
 				<p:outputLabel value="SOBRENOME: " for="sobrenome"/>
-				<p:inputText value="#{pessoaBean.pessoa.sobrenome}" id="sobrenome" required="true" requiredMessage="Sobreome Obrigatório ou Somente Letras"/>
+				<p:inputText value="#{pessoaBean.pessoa.sobrenome}" id="sobrenome" required="true" requiredMessage="Sobreome Obrigatório ou Somente Letras"
+							 maxlength="30">
+					<p:keyFilter regEx="/[a-z_]/i"/>			
+				</p:inputText>
 				
 				<p:outputLabel value="MATRICULA: " for="matricula"/>
-				<p:inputText value="#{pessoaBean.pessoa.matricula}" id="matricula" required="true" requiredMessage="Matricula Obrigatória ou Somente Numero"/>
+				<p:inputText value="#{pessoaBean.pessoa.matricula}" id="matricula" required="true" requiredMessage="Matricula Obrigatória ou Somente Numero"
+							 maxlength="30">
+					<p:keyFilter regEx="/[\d\-\.]/"/>			 
+				</p:inputText> 
 				
 				<p:outputLabel value="LOGIN: " for="login"/>
-				<p:inputText value="#{pessoaBean.pessoa.login}" id="login" required="true" requiredMessage="Login Obrigatório"/>
+				<p:inputText value="#{pessoaBean.pessoa.login}" id="login" required="true" requiredMessage="Login Obrigatório"
+							 maxlength="30">
+					<p:keyFilter regEx="/[a-z0-9_]/i"/>		 
+				</p:inputText>			 
 				
 				<p:outputLabel value="SENHA: " for="senha"/>
-				<p:password value="#{pessoaBean.pessoa.senha}" id="senha" match="confirmesenha" required="true" requiredMessage="Senha Obrigatória" validatorMessage="Senha não compatíveis"/>
+				<p:password value="#{pessoaBean.pessoa.senha}" id="senha" match="confirmesenha" required="true" requiredMessage="Senha Obrigatória" validatorMessage="Senha não compatíveis"
+							maxlength="30"/>
 				
 				<p:outputLabel value="CONFIRME A SENHA: " for="confirmesenha"/>
-				<p:password value="#{pessoaBean.pessoa.senha}" id="confirmesenha" required="true" requiredMessage="Senha Obrigatória"/>
+				<p:password value="#{pessoaBean.pessoa.senha}" id="confirmesenha" required="true" requiredMessage="Senha Obrigatória"
+							maxlength="30"/>
 				
 			</h:panelGrid>
 			<br></br>
