@@ -16,10 +16,15 @@
 				<h:panelGrid columns="2">
 					
 					<p:outputLabel value="NOME: " for="nome" />
-					<p:inputText value="#{menuItemBean.menuItem.nome}" id="nome" required="true" requiredMessage="Nome Obrigatório ou Somente Letras"/>
+					<p:inputText value="#{menuItemBean.menuItem.nome}" id="nome" required="true" requiredMessage="Nome Obrigatório ou Somente Letras"
+								 maxlength="30">
+						<p:keyFilter regEx="/[a-z_]/i"/>
+					</p:inputText>	
 					
 					<p:outputLabel value="URL: " for="url" />
-					<p:inputText value="#{menuItemBean.menuItem.url}" id="url" required="true" requiredMessage="Nome Obrigatório ou Somente Letras"/>
+					<p:inputText value="#{menuItemBean.menuItem.url}" id="url" required="true" requiredMessage="Nome Obrigatório ou Somente Letras"
+								 maxlength="30">
+					</p:inputText>	
 				
 				
 				</h:panelGrid>

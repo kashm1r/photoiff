@@ -15,7 +15,10 @@
 					<p:growl autoUpdate="true" showDetail="true" life="5000"/>
 					<h:panelGrid columns="2">
 						<p:outputLabel value="NOME" for="nome"/>
-						<p:inputText value="#{perfilBean.perfil.nome}" id="nome" required="true" requiredMessage="Nome obrigatório!"/>	
+						<p:inputText value="#{perfilBean.perfil.nome}" id="nome" required="true" requiredMessage="Nome obrigatório!"
+									 maxlength="30">
+							<p:keyFilter regEx="/[a-z_]/i"/>
+						</p:inputText>	
 					</h:panelGrid>
 					
 					<br/>
