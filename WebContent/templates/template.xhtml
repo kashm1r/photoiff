@@ -26,17 +26,9 @@
     				<br/><br/>
     				<p:button value="Upload de Fotos" href="foto.xhtml" icon="ui-icon-transferthick-e-w"/>
 					<br/><br/>
-    				<p:menu toggleable="true">
-		    		    <p:submenu label="Configurações">
-            				<p:menuitem value="Ger. Usuario" outcome="usuario.xhtml" icon="ui-icon-person"/>
-            				<p:menuitem value="Ger. Partições" outcome="particao.xhtml" icon="ui-icon-folder-open"/>
-            				<p:submenu label = "Administrativo">
-            					<p:menuitem value="Ger. SubMenus" outcome="submenu.xhtml" icon="ui-icon-gear"/>
-            					<p:menuitem value="Ger. Menus" outcome="menu.xhtml" icon="ui-icon-gear"/>
-            					<p:menuitem value="Ger. Perfil" outcome="perfil.xhtml" icon="ui-icon-gear"/>
-            				</p:submenu>
-        				</p:submenu>
-    				</p:menu>
+					
+    				<p:menu model="#{criarMenusBean.model}"/> 
+    				
     				<br/>
     				
     				
