@@ -31,6 +31,5 @@ public class MenuService extends GenericService<Menu>{
 		
 		return menu;
  	}
-
-
+	
 }
