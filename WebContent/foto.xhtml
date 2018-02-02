@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/templates/template.xhtml">
+		<ui:define name="titulo">inPICS | Fotos</ui:define>
+		<ui:define name="conteudo">
+		
+			<h:form id="formFoto">
+			<br/>
+				<p:growl autoUpdate="true" showDetail="true" life="5000" />
+				
+			<br/><br/>
+			
+				<p:commandButton value = "Importar Fotos" action="#{fotoBean.exibirTelaImportacaoDeFotos(fotos)}"
+								 update=":formFoto"/>
+								 
+				<p:dialog widgetVar="fotoDl" modal="true" resizable="false" position="center top">
+				
+    				<p:fileUpload fileUploadListener="#{fotoBean.importarFotos}" mode="advanced"
+    							  dragDropSupport="false"
+                  				  multiple="true" update=":formFoto" sizeLimit="6000000" fileLimit="100" 
+                  				  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Adicionar" uploadLabel="Carregar" cancelLabel="Cancelar"
+                  				  invalidSizeMessage="O tamanho máximo permitido é de 6MB."
+                  				  fileLimitMessage="Só é possível escolher 100 arquivos por vez." />
+ 				
+				</p:dialog>
+				
+			</h:form>
+		
+		</ui:define>
+	</ui:composition>
+</html>	
