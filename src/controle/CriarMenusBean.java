@@ -41,7 +41,6 @@ public class CriarMenusBean {
 		setModel(new DefaultMenuModel());
 		final Pessoa pessoa = getPessoa();
 		
-	
 		for(final Menu menu : pessoa.getPerfil().getMenus()) {
 			
 			final DefaultSubMenu submenu = new DefaultSubMenu("Dynamic Actions");
