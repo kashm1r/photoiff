@@ -8,7 +8,9 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
@@ -83,7 +85,7 @@ public class PessoaBean {
 	public void gravarPessoa(){
 		try {
 			if(idPerfil == 0) {
-				FacesContext.getCurrentInstance().addMessage("Pessoa", new FacesMessage("Perfil Inválido"));
+				FacesContext.getCurrentInstance().addMessage("Pessoa", new FacesMessage("Perfil Invï¿½lido"));
 			}else {
 				getPessoa().setPerfil(perfilService.obtemPorId(idPerfil));
 			}
@@ -114,7 +116,7 @@ public class PessoaBean {
 	public void deletarPessoa(Pessoa pess){
 		pessoaService.remove(pess);
 		atualizarPessoa();
-		 addMessage("Aviso", "Usuário deletado com sucesso!");
+		 addMessage("Aviso", "UsuÃ¡rio deletado com sucesso!");
 	}
 	
 	public void addMessage(String summary, String detail) {
@@ -142,6 +144,5 @@ public class PessoaBean {
 		}
 		
 	}
-	
 
 }
