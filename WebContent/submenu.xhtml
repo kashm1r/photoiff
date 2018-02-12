@@ -45,7 +45,7 @@
 		    
 		    	<p:growl autoUpdate="true" id="mensagem" showDetail="true" life="5000" />
 				<p:dataTable value="#{menuItemBean.listaMenuItens}" var="submenus" cellpadding="3" border="1"
-							 paginator="true" rows="10" style="width:98%">
+							 paginator="true" rows="10" style="width:98%" paginatorPosition="bottom">
 							 
 					<p:column headerText="Nome">
 						<p:outputLabel value="#{submenus.nome}" />
