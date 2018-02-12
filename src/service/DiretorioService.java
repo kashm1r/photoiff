@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -43,6 +44,14 @@ public class DiretorioService extends GenericService<Diretorio> {
 
 
 		return diretorios;
+	}
+	
+	public Diretorio buscarDiretorio(String nome) {
+		
+		TypedQuery<Diretorio> query = getEntityManager().createQuery("SELECT d FROM Diretorio d WHERE d.descricao =" + "'" + nome + "'", Diretorio.class);
+			  Diretorio dir = query.getSingleResult();
+		
+		return dir;
 	}
 
 }
