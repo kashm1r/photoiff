@@ -7,18 +7,19 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
-
 
 import modelo.Perfil;
 import modelo.Pessoa;
 import service.PerfilService;
 import service.PessoaService;
 
-@ViewScoped
+@SessionScoped
 @ManagedBean
 public class PessoaBean {
 	
@@ -36,6 +37,25 @@ public class PessoaBean {
 	
 	private List<Perfil> listaPerfis = new ArrayList<Perfil>();
 	
+	private List<Pessoa> listaUsuariosPesquisados = new ArrayList<Pessoa>();
+	
+	private String usuarioLogado = null;
+		
+	public List<Pessoa> getListaUsuariosPesquisados() {
+		return listaUsuariosPesquisados;
+	}
+
+	public void setListaUsuariosPesquisados(List<Pessoa> listaUsuariosPesquisados) {
+		this.listaUsuariosPesquisados = listaUsuariosPesquisados;
+	}
+
+	public String getUsuarioLogado() {
+		return usuarioLogado;
+	}
+
+	public void setUsuarioLogado(String usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
+	}
 
 	public Long getIdPerfil() {
 		return idPerfil;
@@ -73,6 +93,7 @@ public class PessoaBean {
 	public void init(){
 		setListaPerfis(perfilService.listAll());
 		atualizarPessoa();
+		pegarUsuarioLogado();
 	}
 	
 	public void atualizarPessoa(){
@@ -88,10 +109,11 @@ public class PessoaBean {
 				getPessoa().setPerfil(perfilService.obtemPorId(idPerfil));
 			}
 			if(getPessoa().getId()!= null){
+				getPessoa().setSenha(getPessoa().criptografarSenha());
 				pessoaService.merge(getPessoa());
 			} else {
-				pessoaService.create(getPessoa());
-				
+				getPessoa().setSenha(getPessoa().criptografarSenha());
+				pessoaService.create(getPessoa());				
 			}
 			
 			idPerfil = 0L;
@@ -142,5 +164,15 @@ public class PessoaBean {
 		}
 		
 	}
+	
+	public void pegarUsuarioLogado() {
+		final ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext(); 
+		final HttpSession session = (HttpSession) ec.getSession(true);
+		Pessoa user = (Pessoa) session.getAttribute("usuario");
+		setUsuarioLogado(user.getNome());
+	}
+	
+
+	
 
 }
