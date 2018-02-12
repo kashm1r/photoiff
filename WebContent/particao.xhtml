@@ -9,6 +9,52 @@
 		<ui:define name="titulo">Nova Partição</ui:define>
 		<ui:define name="conteudo">
 		
+			<p:dialog widgetVar="particaoDl" modal="true" resizable="false" position="center top">
+				<h:form id="formParticoes">
+					<p:growl autoUpdate="true" showDetail="true" life="5000" />
+					<h:panelGrid columns="2">
+						
+						<p:outputLabel value="NOME: " for="nome" />
+							<p:inputText value="#{consultaDiretoriosBean.diretorio.descricao}" id="nome" required="true" requiredMessage="Nome Obrigatório ou Somente Letras">
+								<p:keyFilter regEx="/[a-z_ ]/i"/>
+						</p:inputText>	
+					
+					</h:panelGrid>
+					
+					<br/>
+					
+					<p:commandButton actionListener="#{consultaDiretoriosBean.adicionarParticao()}" value="Confirmar" update=":formParticoes, :formListParticoes"
+								 icon="ui-icon-check"/>
+					<p:commandButton immediate="true" value="Cancelar" action="#{consultaDiretoriosBean.fecharTelaEditarDiretorio(particoes)}"
+								 icon="ui-icon-close"/>
+				</h:form>
+			</p:dialog>
+			
+			<h:form id="formListParticoes">
+				<br/> <br/>
+
+				<br/><br/>
+				
+				<p:tree style="width:97%" value="#{consultaDiretoriosBean.raiz}" var="diretorio" selectionMode="single" selection="#{consultaDiretoriosBean.selectedNode}">
+			
+					<p:treeNode>
+						<h:outputText value="#{diretorio}" />
+					</p:treeNode>
+						
+				</p:tree>
+				
+				<br/>
+				<h:panelGrid columns="3">			
+					
+					<p:commandButton value="Adicionar" update=":formListParticoes" icon="ui-icon-check" action="#{consultaDiretoriosBean.exibirTelaCadastroDiretorio(particoes)}"/>
+					
+					<p:commandButton value="Editar" update=":formListParticoes" icon="ui-icon-pencil" action="#{consultaDiretoriosBean.editarParticao(particoes)}"
+									 onclick="PF('particaoDl').show()"/>
+					
+					<p:commandButton value="Deletar" update=":formListParticoes" icon="ui-icon-trash" actionListener="#{consultaDiretoriosBean.removerParticao()}"/>
+					
+				</h:panelGrid>					
+			</h:form>		
 		
 		</ui:define>
 	</ui:composition>
