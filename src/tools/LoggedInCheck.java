@@ -9,8 +9,6 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
-import modelo.Menu;
-import modelo.MenuItem;
 import modelo.Pessoa;
 
 
@@ -36,6 +34,7 @@ public class LoggedInCheck implements PhaseListener {
 		}
 		 
 		if(!viewid.startsWith("/index") && 
+				!viewid.startsWith("/primeiroAcesso") && 
 				   usuario == null) {
 			
 					try {
