@@ -1,5 +1,9 @@
 package controle;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -24,7 +28,16 @@ public class ValidarBean {
 	private String loginUser = "";
 	private String senhaUser = "";	
 	private Pessoa usuario;
-		
+	private String senhaLogin;
+			
+	public String getSenhaLogin() {
+		return senhaLogin;
+	}
+
+	public void setSenhaLogin(String senhaLogin) {
+		this.senhaLogin = senhaLogin;
+	}
+
 	public Pessoa getUsuario() {
 		return usuario;
 	}
@@ -52,9 +65,10 @@ public class ValidarBean {
 	public void logar(ActionEvent actionEvent) {
 		validaUsuario("/home.xhtml");
     }
-	
-	
+		
 	private void validaUsuario(final String destino) {
+		senhaLogin = compararSenhaCriptografada(senhaUser);
+		senhaUser = senhaLogin;
 		try {
     		Pessoa pessoa = pessoaService.validarUsuario(loginUser, senhaUser);
     		System.out.println("Usuario logado: " + pessoa.getNome());
@@ -62,7 +76,6 @@ public class ValidarBean {
     		final ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext(); 
     		final HttpSession session = (HttpSession) ec.getSession(true);
 			session.setAttribute("usuario", pessoa);
-			//session.setAttribute("pessoa", pessoa);
 			
 			ec.redirect(ec.getRequestContextPath() + destino);
 		} catch (Exception e) {
@@ -70,7 +83,35 @@ public class ValidarBean {
 		}
 	}
 	
-
-	
+	public String compararSenhaCriptografada(String senha) {
+		String senhaUsuario = senha;
+		String senhaCriptografada = null;
+		
+		MessageDigest algoritmo;
+		byte messageDigest[];
+		StringBuilder hexString;
+		
+		try {
+			
+			algoritmo = MessageDigest.getInstance("MD5");
+			messageDigest = algoritmo.digest(senhaUsuario.getBytes("UTF-8"));
+			hexString = new StringBuilder();
+			
+			for(byte b : messageDigest) {
+				hexString.append(String.format("%02X", 0xFF & b));
+			}
+			
+			senhaCriptografada = hexString.toString();
+			
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch(UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("Senha normal: "+senhaUsuario+" - Senha criptografada: "+senhaCriptografada);
+		return senhaCriptografada;
+		
+	}	
 
 }
