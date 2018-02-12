@@ -41,11 +41,13 @@
 				
 				<p:outputLabel value="SENHA: " for="senha"/>
 				<p:password value="#{pessoaBean.pessoa.senha}" id="senha" match="confirmesenha" required="true" requiredMessage="Senha Obrigatória" validatorMessage="Senha não compatíveis"
-							maxlength="100"/>
+							maxlength="100" redisplay="true" feedback="true" inline="true" weakLabel="Senha Fraca"
+							goodLabel="Senha Media" strongLabel="Senha Forte" promptLabel="Por favor informe a senha"/>
 				
 				<p:outputLabel value="CONFIRME A SENHA: " for="confirmesenha"/>
 				<p:password value="#{pessoaBean.pessoa.senha}" id="confirmesenha" required="true" requiredMessage="Senha Obrigatória"
-							maxlength="100"/>
+							maxlength="100" redisplay="true" feedback="true" inline="true" weakLabel="Senha Fraca"
+							goodLabel="Senha Media" strongLabel="Senha Forte" promptLabel="Por favor informe a senha"/>
 				
 			</h:panelGrid>
 			<br></br>
@@ -83,9 +85,17 @@
 		
 		<p:growl autoUpdate="true" id="mensagem" showDetail="true" life="5000" />
 		<p:dataTable value="#{pessoaBean.listaPessoas}" var="pessoas" cellpadding="3" border="1"
-				 	 paginator="true" rows="10" style="width:98%">
+				 	 paginator="true" rows="10" style="width:98%" paginatorPosition="bottom"
+				 	 widgetVar="pessoasTable" filteredValue="#{pessoaBean.listaUsuariosPesquisados}">
+				 	 
+			<f:facet name="header">
+				<p:outputPanel>
+					<h:outputText value="Pesquisar Usuário:"/>
+					<p:inputText id="globalFilter" onkeyup="PF('pessoasTable').filter()"/>
+				</p:outputPanel>
+			</f:facet>
 			
-			<p:column headerText="Nome">
+			<p:column headerText="Nome" filterBy="#{pessoas.nome}" filterStyle="display:none">
 				<p:outputLabel value="#{pessoas.nome}" />
 			</p:column>
 			
