@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head/>
+<body>
+		
+			<h:form id="formInicio">
+				<p:growl showDetail="true" life="5000"/>
+				<p:commandButton value="Iniciar Sistema" action="#{iniciarSistemaBean.iniciar}" icon="ui-icon-check" process="@form"
+								 update=":formInicio"/>
+			</h:form>
+		
+</body>	
+		
+</html>
