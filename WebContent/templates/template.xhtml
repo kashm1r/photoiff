@@ -23,10 +23,8 @@
 				<p:growl id="messages" showDetail="true" />
 					
 					<p:button value="Home" href="home.xhtml" icon="ui-icon-home"/>	
-    				<br/><br/>
-    				<!-- <p:button value="Upload de Fotos" href="foto.xhtml" icon="ui-icon-transferthick-e-w"/> -->
-					<br/><br/>
-					
+    				<br/>
+					<br/>
     				<p:menu model="#{criarMenusBean.model}"/> 
     				
     				<br/>
@@ -36,7 +34,6 @@
 			</div>
 			
 			<div id="particoes">
-				<br/>
 				<br/>
 		
 				<h:form id="frm">
@@ -48,10 +45,7 @@
 						</p:treeNode>
 						
 					</p:tree>
-					<p:commandButton value="Selecionar" update="messages" icon="ui-icon-check"
-                        actionListener="#{consultaDiretoriosBean.displaySelectedSingle}"/>
-                     
-                    <br/>
+
                     <br/>
 
                   <p:button value="Sair" href="/Logout" icon="ui-icon-power"/>
@@ -63,7 +57,7 @@
 		
 
 		<div id="cabecalho">
-				<p:outputLabel value="#{consultaDiretoriosBean.usuarioLogado}"></p:outputLabel>
+				<p:outputLabel value="#{pessoaBean.usuarioLogado}"></p:outputLabel>
 				<h:graphicImage value="/img/barrasuperior.png"  />
 			
 		</div>
