@@ -50,7 +50,7 @@
 				
 				<p:growl autoUpdate="true" showDetail="true" life="5000"/>
 				<p:dataTable id="listaMenus" value="#{menuBean.listaMenus}" var="menus" cellpadding="3" border="1"
-							 paginator="true" rows="10" style="width:98%">
+							 paginator="true" rows="10" style="width:98%" paginatorPosition="bottom">
 				
 					<p:column headerText="Nome">
 						<p:outputLabel value="#{menus.nome}"/>
