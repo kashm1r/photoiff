@@ -13,6 +13,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import modelo.Menu;
+import modelo.MenuItem;
 import modelo.Pessoa;
 
 @Stateless
@@ -65,6 +66,20 @@ public class PessoaService extends GenericService<Pessoa> {
 		List<Pessoa> pessoas = getEntityManager().createQuery(cquery).getResultList();
 			    	
     	return pessoas;
+	}
+	
+	public void criarUsuarioComPerfilMenuSubMenu(Pessoa usuario) {
+		for(Menu menu : usuario.getPerfil().getMenus()) {
+			for(MenuItem submenu : menu.getItens()) {
+				getEntityManager().persist(submenu);
+			}
+			
+			getEntityManager().persist(menu);
+		}
+		
+		getEntityManager().persist(usuario.getPerfil());
+		
+		create(usuario);
 	}
 
 }
