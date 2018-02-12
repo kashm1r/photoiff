@@ -18,6 +18,8 @@ public class Foto {
 	
 	private String url;
 	
+	private String nome;
+	
 	private Date dataUpload;
 	
 	private Date dataDownload;
@@ -45,6 +47,14 @@ public class Foto {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public Date getDataUpload() {
