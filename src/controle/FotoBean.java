@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -51,14 +52,22 @@ public class FotoBean {
 	private List<Tag> listaTags = new ArrayList<Tag>();
 	
 	private List<File> arquivos = new ArrayList<File>();
-	
-	private Long idPessoa = 0L;
-	
-	private Long idTag = 0L;
-	
+		
 	private UploadedFile upload;
 	
+	private Date data = new Date();
+	
+	private Date dataDownload = new Date();
+	
 	private Pessoa usuario = new Pessoa();
+		
+	public Date getDataDownload() {
+		return dataDownload;
+	}
+
+	public void setDataDownload(Date dataDownload) {
+		this.dataDownload = dataDownload;
+	}
 	
 	public List<File> getArquivos() {
 		return arquivos;
@@ -91,23 +100,6 @@ public class FotoBean {
 	public void setListaTags(List<Tag> listaTags) {
 		this.listaTags = listaTags;
 	}
-
-	public Long getIdPessoa() {
-		return idPessoa;
-	}
-
-	public void setIdPessoa(Long idPessoa) {
-		this.idPessoa = idPessoa;
-	}
-
-	public Long getIdTag() {
-		return idTag;
-	}
-
-	public void setIdTag(Long idTag) {
-		this.idTag = idTag;
-	}
-	
 	
 	public UploadedFile getUpload() {
 		return upload;
@@ -136,10 +128,27 @@ public class FotoBean {
 		UploadedFile uploadedFile = event.getFile();
 
 		try {
+			listaFotos.clear();
 			File arquivo = FotoBean.escrever(uploadedFile.getFileName(), uploadedFile.getContents());
-
 			arquivos.add(arquivo);
-
+			
+			
+	//-----------------processo para gravar no banco as fotos--------------------------------
+			
+				foto.setUrl(arquivo.getAbsolutePath());
+				foto.setNome(uploadedFile.getFileName());
+				foto.setPessoa(pegarUsuarioLogado());
+				foto.setDataDownload(null);
+				foto.setDataUpload(data);
+				foto.setDiretorio(null);
+				foto.setTags(null);
+				
+				fotoService.create(foto);
+				
+				foto = new Foto();
+				
+	//--------------------------------------------------------------------------------------
+			
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Upload completo", "O arquivo " + arquivo.getName() + " foi salvo!"));
 		} catch (IOException e) {
@@ -147,7 +156,7 @@ public class FotoBean {
 					new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro", e.getMessage()));
 		}
 	}
-	
+		
 	public static File escrever(String name, byte[] contents) throws IOException {
 		File file = new File(diretorioRaiz(), name);
 
@@ -222,5 +231,6 @@ public class FotoBean {
 
 		return user;	
 	}
+	
 
 }
