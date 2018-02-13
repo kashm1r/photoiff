@@ -10,26 +10,28 @@
 		<ui:define name="conteudo">
 		
 			<h:form id="formFoto">
-			<br/>
-				<p:growl autoUpdate="true" showDetail="true" life="5000" />
+				<br/>
+					<p:growl autoUpdate="true" showDetail="true" life="5000" />
 				
-			<br/><br/>
+				<br/><br/>
 			
-				<p:commandButton value = "Importar Fotos" action="#{fotoBean.exibirTelaImportacaoDeFotos(fotos)}"
-								 update=":formFoto"/>
+					<p:commandButton value = "Importar Fotos" action="#{fotoBean.exibirTelaImportacaoDeFotos(fotos)}"
+								 	update=":formFoto"/>
+				
+				<br/><br/>
 								 
-				<p:dialog widgetVar="fotoDl" modal="true" resizable="false" position="center top">
+					<p:dialog widgetVar="fotoDl" modal="true" resizable="false" position="center top">
 				
-    				<p:fileUpload fileUploadListener="#{fotoBean.importarFotos}" mode="advanced"
-    							  dragDropSupport="false"
-                  				  multiple="true" update=":formFoto" sizeLimit="6000000" fileLimit="100" 
-                  				  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Adicionar" uploadLabel="Carregar" cancelLabel="Cancelar"
-                  				  invalidSizeMessage="O tamanho máximo permitido é de 6MB!"
-                  				  fileLimitMessage="Só é possível escolher 100 arquivos por vez!" 
-                  				  invalidFileMessage="Formato de arquivo não permitido!"/>
+    					<p:fileUpload fileUploadListener="#{fotoBean.importarFotos}" mode="advanced"
+    								  dragDropSupport="false" sequential="true"
+                  					  multiple="true" update=":formFoto" sizeLimit="6000000" fileLimit="100" 
+                  					  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Adicionar" uploadLabel="Carregar" cancelLabel="Cancelar"
+                  				  	  invalidSizeMessage="O tamanho máximo permitido é de 6MB!"
+	                  				  fileLimitMessage="Só é possível escolher 100 arquivos por vez!" 
+    	              				  invalidFileMessage="Formato de arquivo não permitido!"/>
  				
-				</p:dialog>
-				
+					</p:dialog>
+					
 			</h:form>
 		
 		</ui:define>
