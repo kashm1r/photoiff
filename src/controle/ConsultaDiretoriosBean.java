@@ -111,7 +111,7 @@ public class ConsultaDiretoriosBean {
 	
 	public void adicionarParticao() {
 		if(selectedNode == null) {
-			// Criar uma partição pai, setando o diretorio pai como nulo
+			// Criar uma partição pai, setando o diretorio pai como nulo			
 		} else {
 			// Criar uma subpartição através de um objeto já existente, setando o diretório pai igual ao ID do mesmo
 		}
