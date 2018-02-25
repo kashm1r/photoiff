@@ -171,8 +171,5 @@ public class PessoaBean {
 		Pessoa user = (Pessoa) session.getAttribute("usuario");
 		setUsuarioLogado(user.getNome());
 	}
-	
-
-	
 
 }
