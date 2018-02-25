@@ -85,17 +85,9 @@
 		
 		<p:growl autoUpdate="true" id="mensagem" showDetail="true" life="5000" />
 		<p:dataTable value="#{pessoaBean.listaPessoas}" var="pessoas" cellpadding="3" border="1"
-				 	 paginator="true" rows="10" style="width:98%" paginatorPosition="bottom"
-				 	 widgetVar="pessoasTable" filteredValue="#{pessoaBean.listaUsuariosPesquisados}">
-				 	 
-			<f:facet name="header">
-				<p:outputPanel>
-					<h:outputText value="Pesquisar Usuário:"/>
-					<p:inputText id="globalFilter" onkeyup="PF('pessoasTable').filter()"/>
-				</p:outputPanel>
-			</f:facet>
+				 	 paginator="true" rows="10" style="width:98%" paginatorPosition="bottom">
 			
-			<p:column headerText="Nome" filterBy="#{pessoas.nome}" filterStyle="display:none">
+			<p:column headerText="Nome">
 				<p:outputLabel value="#{pessoas.nome}" />
 			</p:column>
 			
@@ -115,7 +107,7 @@
 			<p:column>
 				<p:commandButton actionListener="#{pessoaBean.deletarPessoa(pessoas)}" value="Deletar" update=":formList1"
 								 icon="ui-icon-trash">
-					<p:confirm header="Aviso" message="Deseja apagar o usuário?" icon="ui-icon-alert" />
+					<p:confirm header="Aviso" message="Deseja apagar o usuário?" icon="ui-icon-alert"/>
 				</p:commandButton>
 			</p:column>
 			
