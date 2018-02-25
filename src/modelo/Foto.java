@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
+import org.primefaces.model.StreamedContent;
 
 @Entity
 public class Foto {
@@ -19,7 +23,6 @@ public class Foto {
 	
 	private String url;
 	
-	@Column (nullable = false, unique = true)
 	private String nome;
 	
 	private Date dataUpload;
@@ -34,6 +37,12 @@ public class Foto {
 	
 	@ManyToOne
 	private Diretorio diretorio = new Diretorio();
+	
+	@Column(columnDefinition="TINYINT(1)")
+	private Boolean habilitarVisualizacao;
+	
+	@Transient
+	private StreamedContent fotoMemoria;
 
 	public Long getId() {
 		return id;
@@ -98,9 +107,46 @@ public class Foto {
 	public void setDiretorio(Diretorio diretorio) {
 		this.diretorio = diretorio;
 	}
+
+	public Boolean getHabilitarVisualizacao() {
+		return habilitarVisualizacao;
+	}
+
+	public void setHabilitarVisualizacao(Boolean habilitarVisualizacao) {
+		this.habilitarVisualizacao = habilitarVisualizacao;
+	}
+
+	public StreamedContent getFotoMemoria() {
+		return fotoMemoria;
+	}
+
+	public void setFotoMemoria(StreamedContent fotoMemoria) {
+		this.fotoMemoria = fotoMemoria;
+	}
+
+	@Override
+	public String toString() {
+		return "Foto [url=" + url + ", nome=" + nome + "]";
+	}
 	
-	
-	
-	
+	public String trocarNomeFotoImportada(String nomeFotoAtual){
+
+		Calendar calendario = Calendar.getInstance();
+		String nomeTrocado = "";
+		nomeTrocado = nomeFotoAtual;
+
+		nomeTrocado = "inPICS.FT_";
+		nomeTrocado = nomeTrocado + String.valueOf(calendario.get(Calendar.DAY_OF_MONTH));
+		nomeTrocado = nomeTrocado + String.valueOf(calendario.get(Calendar.MONTH) + 1);
+		nomeTrocado = nomeTrocado + String.valueOf(calendario.get(Calendar.YEAR));
+		nomeTrocado = nomeTrocado + String.valueOf(calendario.get(Calendar.HOUR_OF_DAY));
+		nomeTrocado = nomeTrocado + String.valueOf(calendario.get(Calendar.MINUTE));
+		nomeTrocado = nomeTrocado + String.valueOf(calendario.get(Calendar.SECOND));
+		nomeTrocado = nomeTrocado + String.valueOf(calendario.get(Calendar.MILLISECOND));
+
+		return nomeTrocado;
+
+	}
+
 
 }
