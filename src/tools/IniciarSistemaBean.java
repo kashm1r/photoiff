@@ -58,6 +58,10 @@ public class IniciarSistemaBean {
 				cadastroParticoes.setNome("Cadastro de Particoes");
 				cadastroParticoes.setUrl("particao.xhtml");
 				
+			MenuItem gerenciarFotos = new MenuItem();
+				gerenciarFotos.setNome("Gerenciar Fotos");
+				gerenciarFotos.setUrl("gerenciarFoto.xhtml");
+				
 //----------------------------------CRIAR MENUS------------------------------
 				
 			Menu cadastro = new Menu();
@@ -74,14 +78,16 @@ public class IniciarSistemaBean {
 			Menu fotos = new Menu();
 				fotos.setNome("Fotos");
 				fotos.getItens().add(cadastroFoto);
+				fotos.getItens().add(gerenciarFotos);
 				
 //------------------------------------CRIAR PERFIL----------------------------
 				
 			Perfil diretoria = new Perfil();
-				diretoria.setNome("diretoria");
+				diretoria.setNome("Diretoria");
 				diretoria.getMenus().add(cadastro);
 				diretoria.getMenus().add(administrativo);
 				diretoria.getMenus().add(fotos);
+					
 				
 //-----------------------------------CRIAR USUARIO---------------------------
 				
