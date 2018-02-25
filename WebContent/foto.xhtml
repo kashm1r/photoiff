@@ -8,6 +8,7 @@
 	<ui:composition template="/templates/template.xhtml">
 		<ui:define name="titulo">inPICS | Fotos</ui:define>
 		<ui:define name="conteudo">
+			<!--  <f:event listener="#{fotoBean.inicializar}" type="preRenderComponent"/>-->
 		
 			<h:form id="formFoto">
 				<br/>
@@ -15,25 +16,53 @@
 				
 				<br/><br/>
 			
-					<p:commandButton value = "Importar Fotos" action="#{fotoBean.exibirTelaImportacaoDeFotos(fotos)}"
+					<p:commandButton value = "Importar Fotos" action="#{fotoBean.exibirTelaImportacaoDeFotos()}"
 								 	update=":formFoto"/>
 				
 				<br/><br/>
 								 
-					<p:dialog widgetVar="fotoDl" modal="true" resizable="false" position="center top">
-				
+					<p:dialog widgetVar="fotoDl" modal="true" resizable="false" position="center top" closable="false">
+					<p:commandButton action="#{fotoBean.fecharTelaImportacaoDeFoto()}" value="Fechar" update="formGaleria"/>
     					<p:fileUpload fileUploadListener="#{fotoBean.importarFotos}" mode="advanced"
     								  dragDropSupport="false" sequential="true"
-                  					  multiple="true" update=":formFoto" sizeLimit="6000000" fileLimit="100" 
+                  					  multiple="true" sizeLimit="6000000" fileLimit="100" 
                   					  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Adicionar" uploadLabel="Carregar" cancelLabel="Cancelar"
                   				  	  invalidSizeMessage="O tamanho máximo permitido é de 6MB!"
 	                  				  fileLimitMessage="Só é possível escolher 100 arquivos por vez!" 
-    	              				  invalidFileMessage="Formato de arquivo não permitido!"/>
- 				
+    	              				  invalidFileMessage="Formato de arquivo não permitido!" />
+    				
 					</p:dialog>
 					
+				<br/><br/>
+			
+					
 			</h:form>
-		
+			<h:form id="formGaleria">
+				
+			<!-- <p:galleria value="#{fotoBean.listaFotos}" var="fotoAtual" panelWidth="500" panelHeight="313" > 
+    				<p:graphicImage  value="#{fotoAtual.fotoMemoria}" stream="false" title="#{fotoAtual.url}"/>
+				 </p:galleria>  -->
+					 
+					 
+					 
+					 <p:dataGrid value="#{fotoBean.listaFotos}" var="fotoAtual" columns="4" layout="grid"
+					 			 paginator="false" style="width:98%">
+					 	
+					 	<f:facet name="header">
+					 		Fotos em processo de indexação...
+					 	</f:facet>
+					 	
+					 	<p:panel>
+							<h:panelGrid columns="1" style="width:100%">	 	
+						 		<p:graphicImage  value="#{fotoAtual.fotoMemoria}" stream="false" title="#{fotoAtual.nome}"/>
+						 	</h:panelGrid>
+					 	</p:panel>
+	
+					 </p:dataGrid>
+			</h:form>
+			
+		<br />
+
 		</ui:define>
 	</ui:composition>
 </html>	
